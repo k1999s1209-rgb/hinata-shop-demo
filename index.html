@@ -3,199 +3,254 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ひなた果実店｜太陽の恵み、まるごとお届け</title>
+<title>MilliA ミリア｜纏う、わたしらしさ。</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23141414'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' fill='%23F7F5F2' text-anchor='middle' font-style='italic'%3EM%3C/text%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #FFFBF2;
+    --bg: #F7F5F2;
     --surface: #FFFFFF;
-    --surface-2: #FFF4E4;
-    --text: #3A3226;
-    --text-sub: #8A7E6C;
-    --line: #F0E6D6;
-    --orange: #F4842C;
-    --orange-dark: #E06E12;
-    --green: #4E9E5B;
-    --green-dark: #3E8049;
-    --danger: #D9534F;
-    --shadow: 0 6px 24px rgba(210, 140, 60, 0.12);
-    --shadow-sm: 0 2px 10px rgba(210, 140, 60, 0.10);
-    --radius: 18px;
+    --surface-2: #EFEBE4;
+    --ink: #171512;
+    --text: #26221D;
+    --text-sub: #8C8375;
+    --line: #E4DED4;
+    --accent: #A67B5B;
+    --accent-dark: #8C6244;
+    --danger: #C25450;
+    --shadow: 0 10px 32px rgba(40, 32, 20, 0.12);
+    --shadow-sm: 0 3px 14px rgba(40, 32, 20, 0.08);
+    --radius: 16px;
     --radius-sm: 12px;
+    --serif: "Georgia", "Times New Roman", "Hiragino Mincho ProN", "Yu Mincho", serif;
   }
   :root[data-theme="dark"] {
-    --bg: #211C16;
-    --surface: #2C261E;
-    --surface-2: #362E24;
-    --text: #F5EEE2;
-    --text-sub: #B7A98F;
-    --line: #453B2E;
-    --orange: #FF9A42;
-    --orange-dark: #F4842C;
-    --green: #6FBF7C;
-    --green-dark: #5AA867;
-    --shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.30);
+    --bg: #171411;
+    --surface: #211D19;
+    --surface-2: #2B2620;
+    --ink: #F2EDE5;
+    --text: #EFEAE2;
+    --text-sub: #A79B89;
+    --line: #383126;
+    --accent: #C79A6B;
+    --accent-dark: #B0824F;
+    --shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+    --shadow-sm: 0 3px 14px rgba(0, 0, 0, 0.35);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: "Hiragino Maru Gothic ProN", "Hiragino Maru Gothic Pro", "Rounded Mplus 1c",
-                 "Segoe UI", "Yu Gothic UI", sans-serif;
+    font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic", "Segoe UI", sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.7;
+    line-height: 1.75;
+    letter-spacing: .015em;
     -webkit-font-smoothing: antialiased;
     transition: background .3s, color .3s;
   }
   a { color: inherit; text-decoration: none; }
   img { max-width: 100%; }
   .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  h1, h2, h3, .serif { font-family: var(--serif); font-weight: 600; letter-spacing: .03em; }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes floaty { 0%,100% { transform: translateY(0) rotate(var(--r,0deg)); } 50% { transform: translateY(-14px) rotate(var(--r,0deg)); } }
+  @keyframes scrollX { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes pop { 0% { transform: scale(1); } 40% { transform: scale(1.55); } 100% { transform: scale(1); } }
+  @keyframes shine { from { background-position: 200% center; } to { background-position: -200% center; } }
+  .anim { opacity: 0; animation: fadeUp .85s cubic-bezier(.22,.8,.3,1) both; }
+  .d1 { animation-delay: .08s; } .d2 { animation-delay: .22s; } .d3 { animation-delay: .38s; }
+  .d4 { animation-delay: .54s; } .d5 { animation-delay: .7s; }
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s cubic-bezier(.22,.8,.3,1), transform .8s cubic-bezier(.22,.8,.3,1); }
+  .reveal.in { opacity: 1; transform: none; }
+  #app.page-in { animation: fadeIn .4s ease both; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .anim, .reveal { opacity: 1 !important; transform: none !important; }
+  }
 
   /* ===== Header ===== */
   header {
     position: sticky; top: 0; z-index: 50;
-    background: color-mix(in srgb, var(--bg) 88%, transparent);
-    backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
   }
-  .nav { display: flex; align-items: center; gap: 16px; height: 66px; }
-  .logo { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 20px; letter-spacing: .02em; }
-  .logo .mark { font-size: 26px; }
-  .logo b { color: var(--orange); }
+  .nav { display: flex; align-items: center; gap: 18px; height: 68px; }
+  .logo { display: flex; align-items: baseline; gap: 8px; font-family: var(--serif); font-size: 24px; font-style: italic; letter-spacing: .04em; }
+  .logo b { color: var(--accent); font-style: italic; }
+  .logo .jp { font-size: 11px; font-style: normal; color: var(--text-sub); letter-spacing: .3em; font-family: inherit; }
   .nav-spacer { flex: 1; }
-  .nav a.navlink { color: var(--text-sub); font-weight: 700; font-size: 15px; padding: 6px 4px; }
-  .nav a.navlink:hover { color: var(--orange); }
+  .nav a.navlink { color: var(--text-sub); font-weight: 700; font-size: 13px; letter-spacing: .14em; padding: 6px 4px; position: relative; }
+  .nav a.navlink::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1.5px; background: var(--accent); transition: width .25s; }
+  .nav a.navlink:hover { color: var(--accent); }
+  .nav a.navlink:hover::after { width: 100%; }
   .icon-btn {
     border: none; background: var(--surface-2); color: var(--text);
     width: 42px; height: 42px; border-radius: 50%; cursor: pointer;
-    font-size: 18px; display: grid; place-items: center; transition: transform .15s, background .2s;
+    font-size: 17px; display: grid; place-items: center; transition: transform .15s, background .2s;
   }
-  .icon-btn:hover { transform: translateY(-1px); background: var(--surface); }
+  .icon-btn:hover { transform: translateY(-2px); background: var(--surface); }
   .cart-btn { position: relative; }
   .cart-badge {
     position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px;
-    background: var(--orange); color: #fff; border-radius: 10px; font-size: 12px; font-weight: 800;
+    background: var(--accent); color: #fff; border-radius: 10px; font-size: 12px; font-weight: 800;
     display: grid; place-items: center; box-shadow: 0 2px 6px rgba(0,0,0,.2);
   }
   .cart-badge.hidden { display: none; }
+  .cart-badge.pop { animation: pop .45s cubic-bezier(.22,.8,.3,1); }
 
   /* ===== Buttons ===== */
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    border: none; cursor: pointer; font-family: inherit; font-weight: 800; font-size: 15px;
-    padding: 13px 22px; border-radius: 999px; transition: transform .15s, box-shadow .2s, background .2s;
+    border: none; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 14px;
+    letter-spacing: .08em; padding: 14px 26px; border-radius: 999px;
+    transition: transform .18s, box-shadow .25s, background .25s, letter-spacing .25s;
   }
   .btn:active { transform: scale(.97); }
-  .btn-primary { background: var(--orange); color: #fff; box-shadow: var(--shadow-sm); }
-  .btn-primary:hover { background: var(--orange-dark); }
-  .btn-green { background: var(--green); color: #fff; }
-  .btn-green:hover { background: var(--green-dark); }
-  .btn-ghost { background: var(--surface-2); color: var(--text); }
-  .btn-ghost:hover { background: var(--surface); }
+  .btn .arw { display: inline-block; transition: transform .25s; }
+  .btn:hover .arw { transform: translateX(5px); }
+  .btn-primary { background: var(--ink); color: var(--bg); box-shadow: var(--shadow-sm); }
+  .btn-primary:hover { box-shadow: var(--shadow); transform: translateY(-2px); }
+  .btn-accent { background: var(--accent); color: #fff; }
+  .btn-accent:hover { background: var(--accent-dark); transform: translateY(-2px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1.5px solid var(--line); }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
   .btn-block { width: 100%; }
   .btn:disabled { opacity: .5; cursor: not-allowed; }
 
   /* ===== Hero ===== */
-  .hero {
-    background: linear-gradient(135deg, #FFE8C7 0%, #FFF4E4 55%, #EAF6EC 100%);
-    border-radius: 0 0 34px 34px;
-    padding: 54px 0 60px;
-    position: relative; overflow: hidden;
+  .hero { padding: 66px 0 74px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; right: -180px; top: -120px; width: 560px; height: 560px;
+    border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent) 22%, transparent), transparent 68%);
+    pointer-events: none;
   }
-  :root[data-theme="dark"] .hero { background: linear-gradient(135deg, #3a2c18 0%, #2c261e 55%, #23301f 100%); }
-  .hero-inner { display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; }
-  .hero h1 { font-size: 40px; line-height: 1.35; letter-spacing: .01em; margin-bottom: 14px; }
-  .hero h1 span { color: var(--orange); }
-  .hero p { color: var(--text-sub); font-size: 17px; margin-bottom: 26px; max-width: 460px; }
-  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-  .hero-art {
-    aspect-ratio: 1/1; border-radius: 28px; background: var(--surface);
-    box-shadow: var(--shadow); display: grid; place-items: center; font-size: 120px;
-    position: relative;
+  .hero-inner { display: grid; grid-template-columns: 1.05fr .95fr; gap: 30px; align-items: center; position: relative; }
+  .hero .kicker { color: var(--accent); font-weight: 800; letter-spacing: .32em; font-size: 12px; margin-bottom: 16px; }
+  .hero h1 { font-size: 48px; line-height: 1.3; margin-bottom: 18px; }
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+    background: linear-gradient(90deg, var(--accent) 35%, #E3C9A8 50%, var(--accent) 65%);
+    background-size: 200% auto; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
   }
-  .hero-art .sub { position: absolute; font-size: 46px; }
-  .hero-art .s1 { top: 14%; left: 12%; }
-  .hero-art .s2 { bottom: 16%; right: 12%; }
-  .hero-art .s3 { top: 18%; right: 14%; }
-  .badge-pill {
-    display: inline-flex; align-items: center; gap: 6px; background: var(--surface); color: var(--green-dark);
-    font-weight: 800; font-size: 13px; padding: 6px 14px; border-radius: 999px; margin-bottom: 18px;
-    box-shadow: var(--shadow-sm);
+  .hero p { color: var(--text-sub); font-size: 16px; margin-bottom: 30px; max-width: 440px; }
+  .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-art { position: relative; aspect-ratio: 1/1; max-width: 440px; margin-left: auto; }
+  .hero-art .bigM {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic; font-size: 300px; line-height: 1;
+    color: color-mix(in srgb, var(--ink) 8%, transparent); user-select: none;
   }
-  :root[data-theme="dark"] .badge-pill { color: var(--green); }
+  .float-card {
+    position: absolute; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 18px; box-shadow: var(--shadow); display: grid; place-items: center;
+    animation: floaty 5.5s ease-in-out infinite;
+  }
+  .fc1 { width: 150px; height: 180px; font-size: 74px; top: 4%; left: 4%; --r: -7deg; }
+  .fc2 { width: 130px; height: 155px; font-size: 62px; bottom: 8%; left: 32%; --r: 5deg; animation-delay: 1.2s; }
+  .fc3 { width: 165px; height: 195px; font-size: 84px; top: 18%; right: 2%; --r: 3deg; animation-delay: 2.2s; }
+  .float-card .lbl { position: absolute; bottom: 10px; font-size: 10px; letter-spacing: .22em; color: var(--text-sub); font-weight: 700; }
+
+  /* ===== Marquee ===== */
+  .marquee { background: var(--ink); color: var(--bg); overflow: hidden; padding: 13px 0; }
+  .marquee-track { display: inline-flex; white-space: nowrap; animation: scrollX 22s linear infinite; will-change: transform; }
+  .marquee span { font-family: var(--serif); font-style: italic; font-size: 15px; letter-spacing: .28em; padding: 0 34px; }
+  .marquee i { color: var(--accent); font-style: normal; }
 
   /* ===== Section ===== */
-  section.block { padding: 52px 0; }
-  .sec-head { text-align: center; margin-bottom: 34px; }
-  .sec-head .kicker { color: var(--orange); font-weight: 800; letter-spacing: .12em; font-size: 13px; }
-  .sec-head h2 { font-size: 28px; margin-top: 6px; }
-  .sec-head p { color: var(--text-sub); margin-top: 8px; }
+  section.block { padding: 60px 0; }
+  .sec-head { text-align: center; margin-bottom: 38px; }
+  .sec-head .kicker { color: var(--accent); font-weight: 800; letter-spacing: .3em; font-size: 12px; }
+  .sec-head h2 { font-size: 30px; margin-top: 8px; }
+  .sec-head p { color: var(--text-sub); margin-top: 8px; font-size: 14px; }
 
   /* Features */
   .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .feature {
-    background: var(--surface); border-radius: var(--radius); padding: 26px 22px; text-align: center;
-    box-shadow: var(--shadow-sm); border: 1px solid var(--line);
+    background: var(--surface); border-radius: var(--radius); padding: 30px 24px; text-align: center;
+    box-shadow: var(--shadow-sm); border: 1px solid var(--line); transition: transform .25s, box-shadow .25s;
   }
-  .feature .fi { font-size: 40px; }
-  .feature h3 { margin: 12px 0 6px; font-size: 18px; }
-  .feature p { color: var(--text-sub); font-size: 14px; }
+  .feature:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+  .feature .fi { font-size: 36px; }
+  .feature h3 { margin: 14px 0 6px; font-size: 17px; }
+  .feature p { color: var(--text-sub); font-size: 13px; }
+
+  /* About strip */
+  .about {
+    text-align: center; max-width: 640px; margin: 0 auto; padding: 10px 20px;
+  }
+  .about .m { font-family: var(--serif); font-style: italic; font-size: 44px; color: var(--accent); line-height: 1; }
+  .about h2 { font-size: 24px; margin: 14px 0 12px; }
+  .about p { color: var(--text-sub); font-size: 15px; }
 
   /* Filters */
-  .filters { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 28px; }
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
   .chip {
-    border: 1px solid var(--line); background: var(--surface); color: var(--text-sub);
-    padding: 9px 18px; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 14px;
-    font-family: inherit; transition: all .18s;
+    border: 1.5px solid var(--line); background: var(--surface); color: var(--text-sub);
+    padding: 9px 20px; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 13px;
+    letter-spacing: .08em; font-family: inherit; transition: all .2s;
   }
-  .chip:hover { color: var(--orange); border-color: var(--orange); }
-  .chip.active { background: var(--orange); color: #fff; border-color: var(--orange); }
+  .chip:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
 
   /* Product grid */
-  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
   .card {
     background: var(--surface); border-radius: var(--radius); overflow: hidden; cursor: pointer;
     box-shadow: var(--shadow-sm); border: 1px solid var(--line);
-    transition: transform .2s, box-shadow .2s; display: flex; flex-direction: column;
+    transition: transform .28s cubic-bezier(.22,.8,.3,1), box-shadow .28s; display: flex; flex-direction: column;
   }
-  .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-  .card .thumb { aspect-ratio: 4/3; display: grid; place-items: center; font-size: 76px; position: relative; }
+  .card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+  .card .thumb { aspect-ratio: 4/4.6; display: grid; place-items: center; position: relative; overflow: hidden; }
+  .card .thumb .emoji { font-size: 84px; transition: transform .45s cubic-bezier(.22,.8,.3,1); }
+  .card:hover .thumb .emoji { transform: scale(1.18) rotate(-6deg); }
   .card .tag {
-    position: absolute; top: 12px; left: 12px; background: var(--green); color: #fff;
-    font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 999px;
+    position: absolute; top: 14px; left: 14px; background: var(--ink); color: var(--bg);
+    font-size: 11px; font-weight: 800; letter-spacing: .12em; padding: 4px 12px; border-radius: 999px;
   }
-  .card .tag.sale { background: var(--danger); }
-  .card .body { padding: 16px 16px 18px; display: flex; flex-direction: column; flex: 1; }
-  .card .cat { color: var(--text-sub); font-size: 12px; font-weight: 700; }
-  .card h3 { font-size: 17px; margin: 3px 0 6px; }
-  .card .desc { color: var(--text-sub); font-size: 13px; flex: 1; }
+  .card .tag.sale { background: var(--danger); color: #fff; }
+  .card .body { padding: 18px 18px 20px; display: flex; flex-direction: column; flex: 1; }
+  .card .cat { color: var(--text-sub); font-size: 11px; font-weight: 700; letter-spacing: .18em; }
+  .card h3 { font-size: 16px; margin: 5px 0 6px; font-family: inherit; font-weight: 700; letter-spacing: .02em; }
+  .card .desc { color: var(--text-sub); font-size: 12.5px; flex: 1; }
   .card .price { display: flex; align-items: baseline; gap: 8px; margin-top: 12px; }
-  .card .price b { font-size: 21px; color: var(--orange); }
-  .card .price .yen { font-size: 13px; color: var(--orange); font-weight: 800; }
+  .card .price b { font-size: 19px; font-family: var(--serif); letter-spacing: .02em; }
   .card .price s { color: var(--text-sub); font-size: 13px; }
-  .card .add { margin-top: 12px; }
+  .card .add { margin-top: 14px; }
 
   /* Product detail */
-  .detail { display: grid; grid-template-columns: 1fr 1fr; gap: 34px; align-items: start; }
+  .detail { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; align-items: start; }
   .detail .hero-img {
-    background: var(--surface-2); border-radius: var(--radius); aspect-ratio: 1/1;
-    display: grid; place-items: center; font-size: 170px; box-shadow: var(--shadow-sm);
+    border-radius: var(--radius); aspect-ratio: 4/4.8;
+    display: grid; place-items: center; font-size: 180px; box-shadow: var(--shadow-sm); overflow: hidden;
   }
-  .detail .cat { color: var(--green-dark); font-weight: 800; font-size: 14px; }
-  :root[data-theme="dark"] .detail .cat { color: var(--green); }
-  .detail h1 { font-size: 30px; margin: 6px 0 10px; }
-  .detail .lead { color: var(--text-sub); margin-bottom: 18px; }
-  .detail .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 20px; }
-  .detail .price-row b { font-size: 34px; color: var(--orange); }
-  .detail .price-row .yen { font-size: 18px; color: var(--orange); font-weight: 800; }
+  .detail .cat { color: var(--accent); font-weight: 800; font-size: 12px; letter-spacing: .24em; }
+  .detail h1 { font-size: 28px; margin: 8px 0 12px; font-family: inherit; font-weight: 800; }
+  .detail .lead { color: var(--text-sub); margin-bottom: 20px; font-size: 15px; }
+  .detail .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 22px; }
+  .detail .price-row b { font-size: 32px; font-family: var(--serif); }
   .detail .price-row s { color: var(--text-sub); }
+  .detail .price-row .tax { color: var(--text-sub); font-size: 12px; }
+  .size-row { margin-bottom: 20px; }
+  .size-row .lbl { font-weight: 700; font-size: 13px; letter-spacing: .1em; margin-bottom: 8px; }
+  .sizes { display: flex; gap: 8px; flex-wrap: wrap; }
+  .size-chip {
+    min-width: 52px; padding: 9px 14px; border: 1.5px solid var(--line); background: var(--surface);
+    border-radius: 10px; cursor: pointer; font-weight: 800; font-size: 14px; font-family: inherit;
+    color: var(--text); text-align: center; transition: all .18s;
+  }
+  .size-chip:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .size-chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
   .spec { border-top: 1px solid var(--line); margin-top: 8px; }
-  .spec div { display: flex; justify-content: space-between; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .spec div { display: flex; justify-content: space-between; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
   .spec div span:first-child { color: var(--text-sub); }
-  .qty { display: flex; align-items: center; gap: 0; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; width: fit-content; }
-  .qty button { border: none; background: var(--surface-2); width: 44px; height: 44px; font-size: 20px; cursor: pointer; color: var(--text); font-family: inherit; }
-  .qty button:hover { background: var(--orange); color: #fff; }
-  .qty input { width: 54px; text-align: center; border: none; background: transparent; font-size: 17px; font-weight: 800; color: var(--text); font-family: inherit; }
+  .qty { display: flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; width: fit-content; background: var(--surface); }
+  .qty button { border: none; background: transparent; width: 44px; height: 44px; font-size: 20px; cursor: pointer; color: var(--text); font-family: inherit; transition: background .2s; }
+  .qty button:hover { background: var(--ink); color: var(--bg); }
+  .qty input { width: 54px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: 800; color: var(--text); font-family: inherit; }
   .detail-actions { display: flex; gap: 12px; align-items: center; margin: 22px 0; flex-wrap: wrap; }
 
   /* Cart */
@@ -205,88 +260,95 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
     padding: 14px; margin-bottom: 14px; box-shadow: var(--shadow-sm);
   }
-  .cart-item .ci-img { width: 84px; height: 84px; border-radius: 12px; background: var(--surface-2); display: grid; place-items: center; font-size: 42px; }
-  .cart-item h4 { font-size: 16px; margin-bottom: 2px; }
+  .cart-item .ci-img { width: 84px; height: 96px; border-radius: 12px; display: grid; place-items: center; font-size: 42px; }
+  .cart-item h4 { font-size: 15px; margin-bottom: 2px; }
   .cart-item .ci-cat { color: var(--text-sub); font-size: 12px; }
-  .cart-item .ci-price { color: var(--orange); font-weight: 800; margin-top: 4px; }
+  .cart-item .ci-size { display: inline-block; background: var(--surface-2); border-radius: 6px; font-size: 11px; font-weight: 800; padding: 2px 8px; margin-top: 4px; letter-spacing: .08em; }
+  .cart-item .ci-price { font-weight: 800; margin-top: 4px; font-family: var(--serif); }
   .cart-item .ci-right { text-align: right; display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
-  .cart-item .remove { background: none; border: none; color: var(--text-sub); cursor: pointer; font-size: 13px; font-family: inherit; }
+  .cart-item .remove { background: none; border: none; color: var(--text-sub); cursor: pointer; font-size: 12.5px; font-family: inherit; }
   .cart-item .remove:hover { color: var(--danger); }
   .summary {
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
-    padding: 22px; box-shadow: var(--shadow-sm); position: sticky; top: 84px;
+    padding: 24px; box-shadow: var(--shadow-sm); position: sticky; top: 86px;
   }
-  .summary h3 { font-size: 18px; margin-bottom: 16px; }
-  .summary .row { display: flex; justify-content: space-between; padding: 8px 0; color: var(--text-sub); font-size: 15px; }
-  .summary .row.total { border-top: 2px dashed var(--line); margin-top: 8px; padding-top: 14px; color: var(--text); font-weight: 800; font-size: 20px; }
-  .summary .row.total b { color: var(--orange); }
-  .free-note { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--green-dark); margin: 8px 0 14px; text-align: center; font-weight: 700; }
-  :root[data-theme="dark"] .free-note { color: var(--green); }
+  .summary h3 { font-size: 17px; margin-bottom: 16px; }
+  .summary .row { display: flex; justify-content: space-between; padding: 8px 0; color: var(--text-sub); font-size: 14.5px; }
+  .summary .row.total { border-top: 2px dashed var(--line); margin-top: 8px; padding-top: 14px; color: var(--text); font-weight: 800; font-size: 19px; }
+  .summary .row.total b { color: var(--accent); font-family: var(--serif); font-size: 22px; }
+  .free-note { background: var(--surface-2); border-radius: 10px; padding: 10px 12px; font-size: 12.5px; color: var(--accent-dark); margin: 8px 0 14px; text-align: center; font-weight: 700; }
+  :root[data-theme="dark"] .free-note { color: var(--accent); }
 
   .empty { text-align: center; padding: 60px 20px; }
-  .empty .big { font-size: 72px; }
-  .empty p { color: var(--text-sub); margin: 10px 0 22px; }
+  .empty .big { font-size: 68px; }
+  .empty p { color: var(--text-sub); margin: 12px 0 24px; }
 
   /* Checkout form */
   .checkout-layout { display: grid; grid-template-columns: 1fr 340px; gap: 26px; align-items: start; }
-  .form-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-sm); }
-  .form-card h3 { font-size: 18px; margin-bottom: 4px; }
+  .form-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
+  .form-card h3 { font-size: 17px; margin-bottom: 4px; }
   .form-card .hint { color: var(--text-sub); font-size: 13px; margin-bottom: 18px; }
   .field { margin-bottom: 16px; }
-  .field label { display: block; font-weight: 700; font-size: 14px; margin-bottom: 6px; }
-  .field label .req { color: var(--danger); font-size: 12px; margin-left: 4px; }
+  .field label { display: block; font-weight: 700; font-size: 13.5px; margin-bottom: 6px; }
+  .field label .req { color: var(--danger); font-size: 11px; margin-left: 5px; }
   .field input, .field textarea, .field select {
     width: 100%; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 12px;
     background: var(--bg); color: var(--text); font-family: inherit; font-size: 15px; transition: border .2s;
   }
-  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--orange); }
+  .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--accent); }
   .field input.err, .field textarea.err { border-color: var(--danger); }
   .field .msg { color: var(--danger); font-size: 12px; margin-top: 5px; display: none; }
   .field .msg.show { display: block; }
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .pay-opts { display: flex; flex-direction: column; gap: 10px; }
-  .pay-opt { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; }
+  .pay-opt { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; cursor: pointer; transition: border .2s; }
+  .pay-opt:hover { border-color: var(--accent); }
   .pay-opt input { width: auto; }
 
   /* Complete */
   .complete { text-align: center; padding: 30px 20px 10px; max-width: 560px; margin: 0 auto; }
-  .complete .check { width: 92px; height: 92px; border-radius: 50%; background: var(--green); color: #fff; display: grid; place-items: center; font-size: 50px; margin: 0 auto 20px; box-shadow: 0 8px 24px rgba(78,158,91,.35); }
-  .complete h1 { font-size: 28px; margin-bottom: 10px; }
-  .complete p { color: var(--text-sub); margin-bottom: 8px; }
-  .order-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; margin: 22px 0; box-shadow: var(--shadow-sm); text-align: left; }
-  .order-box .onum { text-align: center; font-size: 24px; font-weight: 800; color: var(--orange); letter-spacing: .05em; margin-bottom: 4px; }
-  .order-box .olabel { text-align: center; color: var(--text-sub); font-size: 13px; margin-bottom: 16px; }
+  .complete .check { width: 92px; height: 92px; border-radius: 50%; background: var(--ink); color: var(--bg); display: grid; place-items: center; font-size: 46px; margin: 0 auto 22px; box-shadow: var(--shadow); font-family: var(--serif); font-style: italic; }
+  .complete h1 { font-size: 26px; margin-bottom: 10px; }
+  .complete p { color: var(--text-sub); margin-bottom: 8px; font-size: 14.5px; }
+  .order-box { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin: 24px 0; box-shadow: var(--shadow-sm); text-align: left; }
+  .order-box .onum { text-align: center; font-size: 23px; font-weight: 800; color: var(--accent); letter-spacing: .08em; margin-bottom: 4px; font-family: var(--serif); }
+  .order-box .olabel { text-align: center; color: var(--text-sub); font-size: 12px; letter-spacing: .2em; margin-bottom: 16px; }
   .order-box .row { display: flex; justify-content: space-between; padding: 7px 0; font-size: 14px; border-top: 1px solid var(--line); }
   .order-box .row span:first-child { color: var(--text-sub); }
 
   /* Toast */
   .toast {
     position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%) translateY(20px);
-    background: var(--text); color: var(--bg); padding: 13px 22px; border-radius: 999px;
-    font-weight: 700; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.25);
-    opacity: 0; pointer-events: none; transition: all .3s; z-index: 100; display: flex; gap: 8px; align-items: center;
+    background: var(--ink); color: var(--bg); padding: 13px 24px; border-radius: 999px;
+    font-weight: 700; font-size: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.28);
+    opacity: 0; pointer-events: none; transition: all .35s cubic-bezier(.22,.8,.3,1); z-index: 100;
+    display: flex; gap: 8px; align-items: center; letter-spacing: .04em;
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* Footer */
-  footer { background: var(--surface-2); border-top: 1px solid var(--line); margin-top: 40px; padding: 40px 0 26px; }
-  .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; margin-bottom: 26px; }
-  .foot-grid h4 { font-size: 15px; margin-bottom: 12px; }
-  .foot-grid a { display: block; color: var(--text-sub); font-size: 14px; padding: 4px 0; }
-  .foot-grid a:hover { color: var(--orange); }
-  .foot-grid p { color: var(--text-sub); font-size: 14px; }
-  .foot-bottom { text-align: center; color: var(--text-sub); font-size: 13px; border-top: 1px solid var(--line); padding-top: 18px; }
-  .demo-note { background: var(--orange); color: #fff; text-align: center; font-size: 13px; font-weight: 700; padding: 8px; }
+  footer { background: var(--surface-2); border-top: 1px solid var(--line); margin-top: 44px; padding: 44px 0 28px; }
+  .foot-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 24px; margin-bottom: 28px; }
+  .foot-grid h4 { font-size: 13px; letter-spacing: .2em; margin-bottom: 12px; }
+  .foot-grid a { display: block; color: var(--text-sub); font-size: 13.5px; padding: 4px 0; transition: color .2s; }
+  .foot-grid a:hover { color: var(--accent); }
+  .foot-grid p { color: var(--text-sub); font-size: 13.5px; }
+  .foot-logo { font-family: var(--serif); font-style: italic; font-size: 22px; margin-bottom: 10px; }
+  .foot-logo b { color: var(--accent); }
+  .foot-bottom { text-align: center; color: var(--text-sub); font-size: 12.5px; border-top: 1px solid var(--line); padding-top: 18px; letter-spacing: .06em; }
+  .demo-note { background: var(--ink); color: var(--bg); text-align: center; font-size: 12px; font-weight: 700; letter-spacing: .1em; padding: 8px; }
+  .demo-note i { color: var(--accent); font-style: normal; }
 
   .breadcrumb { color: var(--text-sub); font-size: 13px; margin-bottom: 18px; }
-  .breadcrumb a:hover { color: var(--orange); }
-  .page-title { font-size: 26px; margin-bottom: 6px; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .page-title { font-size: 25px; margin-bottom: 6px; }
 
   /* Responsive */
   @media (max-width: 860px) {
     .hero-inner { grid-template-columns: 1fr; }
-    .hero-art { max-width: 300px; margin: 0 auto; }
-    .hero h1 { font-size: 32px; }
+    .hero-art { max-width: 320px; margin: 0 auto; }
+    .hero-art .bigM { font-size: 210px; }
+    .hero h1 { font-size: 36px; }
     .features { grid-template-columns: 1fr; }
     .grid { grid-template-columns: repeat(2, 1fr); }
     .detail { grid-template-columns: 1fr; }
@@ -298,22 +360,22 @@
     .grid { grid-template-columns: 1fr; }
     .nav a.navlink { display: none; }
     .grid2 { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 27px; }
+    .hero h1 { font-size: 30px; }
   }
 </style>
 </head>
 <body>
-<div class="demo-note">🍊 これはデザインデモです。実際の販売・決済・データ送信は行われません。</div>
+<div class="demo-note"><i>✦</i> DESIGN DEMO — これはデザインデモです。実際の販売・決済は行われません <i>✦</i></div>
 
 <header>
   <div class="wrap nav">
-    <a href="#/" class="logo"><span class="mark">🍊</span><span>ひなた<b>果実店</b></span></a>
+    <a href="#/" class="logo">Milli<b>A</b><span class="jp">ミリア</span></a>
     <div class="nav-spacer"></div>
-    <a href="#/" class="navlink">ホーム</a>
-    <a href="#/products" class="navlink">商品一覧</a>
-    <a href="#/products?cat=季節限定" class="navlink">季節限定</a>
+    <a href="#/" class="navlink">HOME</a>
+    <a href="#/products" class="navlink">ITEMS</a>
+    <a href="#/products?cat=アウター" class="navlink">OUTER</a>
     <button class="icon-btn" id="themeBtn" title="テーマ切替" aria-label="テーマ切替">🌙</button>
-    <a href="#/cart" class="icon-btn cart-btn" title="カート" aria-label="カート">🛒
+    <a href="#/cart" class="icon-btn cart-btn" title="カート" aria-label="カート">👜
       <span class="cart-badge hidden" id="cartBadge">0</span>
     </a>
   </div>
@@ -325,24 +387,24 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="logo" style="margin-bottom:10px"><span class="mark">🍊</span><span>ひなた<b>果実店</b></span></div>
-        <p>全国の契約農家から、太陽をたっぷり浴びた旬のフルーツを産地直送でお届けします。</p>
+        <div class="foot-logo">Milli<b>A</b> <span style="font-size:12px;font-style:normal;letter-spacing:.3em;color:var(--text-sub)">ミリア</span></div>
+        <p>「纏うたびに、わたしを好きになる。」日常に寄り添う、上質でミニマルなワードローブを提案するアパレルブランドです。</p>
       </div>
       <div>
-        <h4>お買い物</h4>
-        <a href="#/products">商品一覧</a>
-        <a href="#/products?cat=柑橘">柑橘</a>
-        <a href="#/products?cat=ぶどう">ぶどう</a>
+        <h4>SHOP</h4>
+        <a href="#/products">アイテム一覧</a>
+        <a href="#/products?cat=トップス">トップス</a>
+        <a href="#/products?cat=アウター">アウター</a>
         <a href="#/cart">カート</a>
       </div>
       <div>
-        <h4>ひなた果実店について</h4>
-        <a href="#/">お店のこだわり</a>
+        <h4>ABOUT</h4>
+        <a href="#/">ブランドについて</a>
         <a href="#/">配送・送料について</a>
-        <a href="#/">よくあるご質問</a>
+        <a href="#/">サイズ交換・返品</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 ひなた果実店（デモサイト）｜ 5,000円以上ご購入で送料無料 🚚</div>
+    <div class="foot-bottom">© 2026 MilliA — DESIGN DEMO ｜ ¥11,000以上のご購入で送料無料</div>
   </div>
 </footer>
 
@@ -354,37 +416,38 @@
 
   // ===== データ =====
   var PRODUCTS = [
-    { id: "mikan",   name: "有田の温州みかん",   cat: "柑橘",     emoji: "🍊", price: 2800, old: 3200, unit: "2kg（約20〜25玉）", origin: "和歌山県有田",   season: "11〜1月", tag: "人気No.1",   desc: "甘さと酸味のバランスが自慢。皮が薄くお子様でも食べやすい定番みかん。" },
-    { id: "shine",   name: "シャインマスカット", cat: "ぶどう",   emoji: "🍇", price: 4980, old: null, unit: "1房（約600g）",     origin: "長野県須坂",     season: "9〜10月", tag: "季節限定",   desc: "皮ごとパリッと、種なしで上品な甘さ。贈答にも喜ばれる高級ぶどう。" },
-    { id: "amaou",   name: "博多あまおう苺",     cat: "季節限定", emoji: "🍓", price: 3480, old: null, unit: "2パック（約540g）", origin: "福岡県",         season: "12〜3月", tag: "冬の味覚",   desc: "「あまい・まるい・おおきい・うまい」を体現した、真っ赤な宝石苺。" },
-    { id: "momo",    name: "山梨の完熟白桃",     cat: "季節限定", emoji: "🍑", price: 3980, old: 4400, unit: "5〜6玉（約1.5kg）", origin: "山梨県笛吹",     season: "7〜8月",  tag: "夏限定",     desc: "とろける果肉とあふれる果汁。木で完熟させた贅沢な一玉。" },
-    { id: "fuji",    name: "サンふじりんご",     cat: "季節限定", emoji: "🍎", price: 2680, old: null, unit: "5kg（約14〜18玉）", origin: "青森県",         season: "11〜12月", tag: "蜜入り",     desc: "蜜がたっぷり入ったシャキシャキ食感。日持ちもよく毎日のおやつに。" },
-    { id: "melon",   name: "アンデスメロン",     cat: "季節限定", emoji: "🍈", price: 3280, old: null, unit: "1玉（約1.3kg）",   origin: "熊本県",         season: "5〜6月",  tag: "母の日に",   desc: "みずみずしく上品な甘さ。青肉でとろける口当たりのメロン。" }
+    { id: "shirt",  name: "オーバーサイズシャツ",       cat: "トップス",  emoji: "👕", price: 8900,  old: null,  sizes: ["S","M","L"],  material: "コットン100%",        tag: "人気",  desc: "とろみのある上質コットンで仕立てた、一枚で様になるリラックスシルエット。" },
+    { id: "knit",   name: "カシミヤタッチニット",       cat: "トップス",  emoji: "🧶", price: 12800, old: null,  sizes: ["S","M","L"],  material: "アクリル/ウール",     tag: "NEW",   desc: "肌ざわりはカシミヤのよう。ふんわり軽いのに暖かい、秋冬の主役ニット。" },
+    { id: "dress",  name: "プリーツロングワンピース",   cat: "ワンピース", emoji: "👗", price: 16500, old: null,  sizes: ["S","M","L"],  material: "ポリエステル100%",    tag: "NEW",   desc: "歩くたびに揺れる繊細なプリーツ。一枚で完成する、洗練のロングドレス。" },
+    { id: "denim",  name: "ハイウエストワイドデニム",   cat: "ボトムス",  emoji: "👖", price: 11900, old: null,  sizes: ["S","M","L"],  material: "コットン98% PU2%",   tag: "人気",  desc: "脚のラインを拾わないワイドストレート。ハイウエストで脚長効果も。" },
+    { id: "coat",   name: "ウールロングコート",         cat: "アウター",  emoji: "🧥", price: 24800, old: 29800, sizes: ["S","M","L"],  material: "ウール90% ナイロン10%", tag: "SALE", desc: "上質なメルトンウールを贅沢に。かっちりしすぎない、大人のロングコート。" },
+    { id: "tote",   name: "レザーミニトート",           cat: "小物",      emoji: "👜", price: 19800, old: null,  sizes: ["FREE"],       material: "牛革",                tag: "限定",  desc: "職人が一つずつ仕立てた本革トート。エイジングも楽しめる、一生ものの相棒。" }
   ];
 
-  var CATS = ["すべて", "柑橘", "ぶどう", "季節限定"];
-  var FREE_SHIP = 5000;
-  var SHIP_FEE = 660;
+  var CATS = ["すべて", "トップス", "ボトムス", "ワンピース", "アウター", "小物"];
+  var FREE_SHIP = 11000;
+  var SHIP_FEE = 550;
 
   // ===== 状態（カートはlocalStorage永続化）=====
   var cart = loadCart();
 
   function loadCart() {
-    try { return JSON.parse(localStorage.getItem("hinata_cart") || "{}"); }
+    try { return JSON.parse(localStorage.getItem("millia_cart") || "{}"); }
     catch (e) { return {}; }
   }
-  function saveCart() {
-    try { localStorage.setItem("hinata_cart", JSON.stringify(cart)); } catch (e) {}
-    updateBadge();
+  function saveCart(animate) {
+    try { localStorage.setItem("millia_cart", JSON.stringify(cart)); } catch (e) {}
+    updateBadge(animate);
   }
   function cartCount() {
     var n = 0; for (var k in cart) n += cart[k]; return n;
   }
   function cartItems() {
     var out = [];
-    for (var id in cart) {
-      var p = findProduct(id);
-      if (p) out.push({ p: p, qty: cart[id] });
+    for (var key in cart) {
+      var parts = key.split("__");
+      var p = findProduct(parts[0]);
+      if (p) out.push({ key: key, p: p, size: parts[1] || "FREE", qty: cart[key] });
     }
     return out;
   }
@@ -400,22 +463,28 @@
   function yen(n) { return "¥" + n.toLocaleString("ja-JP"); }
 
   // ===== カート操作 =====
-  function addToCart(id, qty) {
+  function addToCart(id, size, qty) {
     qty = qty || 1;
-    cart[id] = (cart[id] || 0) + qty;
-    saveCart();
+    var key = id + "__" + size;
+    cart[key] = (cart[key] || 0) + qty;
+    saveCart(true);
   }
-  function setQty(id, qty) {
-    if (qty <= 0) delete cart[id]; else cart[id] = qty;
-    saveCart();
+  function setQty(key, qty) {
+    if (qty <= 0) delete cart[key]; else cart[key] = qty;
+    saveCart(false);
   }
-  function removeFromCart(id) { delete cart[id]; saveCart(); }
+  function removeFromCart(key) { delete cart[key]; saveCart(false); }
 
-  function updateBadge() {
+  function updateBadge(animate) {
     var b = document.getElementById("cartBadge");
     var n = cartCount();
     b.textContent = n;
     b.classList.toggle("hidden", n === 0);
+    if (animate && n > 0) {
+      b.classList.remove("pop");
+      void b.offsetWidth;
+      b.classList.add("pop");
+    }
   }
 
   // ===== Toast =====
@@ -431,7 +500,7 @@
   // ===== テーマ =====
   function initTheme() {
     var saved = null;
-    try { saved = localStorage.getItem("hinata_theme"); } catch (e) {}
+    try { saved = localStorage.getItem("millia_theme"); } catch (e) {}
     if (!saved) saved = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     applyTheme(saved);
     document.getElementById("themeBtn").addEventListener("click", function () {
@@ -442,7 +511,23 @@
   function applyTheme(mode) {
     document.documentElement.setAttribute("data-theme", mode);
     document.getElementById("themeBtn").textContent = mode === "dark" ? "☀️" : "🌙";
-    try { localStorage.setItem("hinata_theme", mode); } catch (e) {}
+    try { localStorage.setItem("millia_theme", mode); } catch (e) {}
+  }
+
+  // ===== スクロール出現アニメーション =====
+  var io = null;
+  function observeReveals() {
+    if (io) io.disconnect();
+    if (!("IntersectionObserver" in window)) {
+      Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) { el.classList.add("in"); });
+      return;
+    }
+    io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    Array.prototype.forEach.call(document.querySelectorAll(".reveal"), function (el) { io.observe(el); });
   }
 
   // ===== ルーティング =====
@@ -472,42 +557,64 @@
     else if (seg[0] === "cart") { app.innerHTML = viewCart(); bindCart(); }
     else if (seg[0] === "checkout") { app.innerHTML = viewCheckout(); bindCheckout(); }
     else if (seg[0] === "complete") { app.innerHTML = viewComplete(); }
-    else { app.innerHTML = '<div class="wrap block"><div class="empty"><div class="big">🤔</div><p>ページが見つかりませんでした。</p><a class="btn btn-primary" href="#/">ホームへ戻る</a></div></div>'; }
+    else { app.innerHTML = '<div class="wrap block"><div class="empty"><div class="big">🕊️</div><p>ページが見つかりませんでした。</p><a class="btn btn-primary" href="#/">ホームへ戻る</a></div></div>'; }
+
+    // ページ切替フェード＋スクロール出現
+    app.classList.remove("page-in");
+    void app.offsetWidth;
+    app.classList.add("page-in");
+    observeReveals();
   }
 
   // ===== ビュー：ホーム =====
   function viewHome() {
     var picks = PRODUCTS.slice(0, 3);
+    var marqueeSet = '<span>NEW COLLECTION 2026 <i>✦</i></span><span>Milli<i>A</i> — everyday, a little special <i>✦</i></span><span>¥11,000以上で送料無料 <i>✦</i></span><span>サイズ交換 無料 <i>✦</i></span>';
     return '' +
     '<section class="hero"><div class="wrap hero-inner">' +
       '<div>' +
-        '<span class="badge-pill">🌱 契約農家から産地直送</span>' +
-        '<h1>太陽の恵みを、<br><span>まるごと</span>食卓へ。</h1>' +
-        '<p>朝採れの旬だけを厳選。ひなた果実店は、農家さんの「いちばん美味しい瞬間」をそのままご自宅へお届けします。</p>' +
-        '<div class="hero-cta">' +
-          '<a class="btn btn-primary" href="#/products">🛒 商品を見る</a>' +
-          '<a class="btn btn-ghost" href="#/products?cat=季節限定">季節限定を見る</a>' +
+        '<div class="kicker anim d1">NEW COLLECTION 2026</div>' +
+        '<h1 class="anim d2">纏う、<br><em>わたしらしさ</em>。</h1>' +
+        '<p class="anim d3">MilliA（ミリア）は、日常に寄り添う上質でミニマルなワードローブを提案します。飾らないのに、どこか特別。そんな毎日を。</p>' +
+        '<div class="hero-cta anim d4">' +
+          '<a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a>' +
+          '<a class="btn btn-ghost" href="#/products?cat=アウター">アウターを見る</a>' +
         '</div>' +
       '</div>' +
-      '<div class="hero-art">🍑<span class="sub s1">🍇</span><span class="sub s2">🍊</span><span class="sub s3">🍓</span></div>' +
+      '<div class="hero-art anim d3">' +
+        '<div class="bigM">M</div>' +
+        '<div class="float-card fc1">👗<span class="lbl">DRESS</span></div>' +
+        '<div class="float-card fc2">👜<span class="lbl">BAG</span></div>' +
+        '<div class="float-card fc3">🧥<span class="lbl">OUTER</span></div>' +
+      '</div>' +
     '</div></section>' +
+
+    '<div class="marquee"><div class="marquee-track">' + marqueeSet + marqueeSet + '</div></div>' +
 
     '<section class="block"><div class="wrap">' +
       '<div class="features">' +
-        feature("🚚", "5,000円で送料無料", "全国どこでもクール便。5,000円以上のご注文で送料無料になります。") +
-        feature("🌡️", "鮮度まるごと直送", "収穫したその日に発送。農家直送だから鮮度が違います。") +
-        feature("💯", "満足保証", "万が一傷みがあった場合は、無料で再送または返金いたします。") +
+        feature("🚚", "¥11,000で送料無料", "全国どこでも。¥11,000以上のご注文で送料無料になります。", 0) +
+        feature("📏", "サイズ交換 無料", "サイズが合わなくても安心。1回まで無料で交換いたします。", 1) +
+        feature("🎁", "丁寧なギフト包装", "大切な人への贈り物に。オリジナルボックスでお届けします。", 2) +
       '</div>' +
     '</div></section>' +
 
+    '<section class="block" style="padding-top:6px"><div class="wrap">' +
+      '<div class="sec-head reveal"><div class="kicker">PICK UP</div><h2>今シーズンの注目アイテム</h2><p>スタイリストが選ぶ、この秋の3着。</p></div>' +
+      '<div class="grid">' + picks.map(function (p, i) { return cardHTML(p, i); }).join("") + '</div>' +
+      '<div style="text-align:center;margin-top:30px" class="reveal"><a class="btn btn-ghost" href="#/products">すべてのアイテムを見る <span class="arw">→</span></a></div>' +
+    '</div></section>' +
+
     '<section class="block" style="padding-top:10px"><div class="wrap">' +
-      '<div class="sec-head"><div class="kicker">PICK UP</div><h2>いま人気の旬フルーツ</h2><p>スタッフおすすめの3品をご紹介します。</p></div>' +
-      '<div class="grid">' + picks.map(cardHTML).join("") + '</div>' +
-      '<div style="text-align:center;margin-top:28px"><a class="btn btn-ghost" href="#/products">すべての商品を見る →</a></div>' +
+      '<div class="about reveal">' +
+        '<div class="m">M</div>' +
+        '<h2>纏うたびに、わたしを好きになる。</h2>' +
+        '<p>流行を追いかけるのではなく、あなたの「好き」に寄り添う服を。MilliAは素材と縫製にこだわり、長く愛せる定番をつくり続けます。</p>' +
+      '</div>' +
     '</div></section>';
   }
-  function feature(i, t, d) {
-    return '<div class="feature"><div class="fi">' + i + '</div><h3>' + t + '</h3><p>' + d + '</p></div>';
+  function feature(i, t, d, idx) {
+    return '<div class="feature reveal" style="transition-delay:' + (idx * 0.12) + 's"><div class="fi">' + i + '</div><h3>' + t + '</h3><p>' + d + '</p></div>';
   }
   function bindHome() { bindAddButtons(); bindCards(); }
 
@@ -519,10 +626,10 @@
       return '<button class="chip' + (c === cat ? ' active' : '') + '" data-cat="' + c + '">' + c + '</button>';
     }).join("");
     return '<div class="wrap block">' +
-      '<div class="sec-head"><div class="kicker">PRODUCTS</div><h2>商品一覧</h2><p>旬のフルーツを取り揃えています。カテゴリで絞り込めます。</p></div>' +
+      '<div class="sec-head"><div class="kicker">ALL ITEMS</div><h2>アイテム一覧</h2><p>上質でミニマルな定番を取り揃えています。</p></div>' +
       '<div class="filters">' + chips + '</div>' +
-      (list.length ? '<div class="grid">' + list.map(cardHTML).join("") + '</div>'
-                   : '<div class="empty"><div class="big">🍃</div><p>このカテゴリの商品は準備中です。</p></div>') +
+      (list.length ? '<div class="grid">' + list.map(function (p, i) { return cardHTML(p, i); }).join("") + '</div>'
+                   : '<div class="empty"><div class="big">🧵</div><p>このカテゴリのアイテムは準備中です。</p></div>') +
     '</div>';
   }
   function bindProducts() {
@@ -535,55 +642,62 @@
     });
   }
 
-  function cardHTML(p) {
+  function cardHTML(p, idx) {
     var tagClass = p.old ? 'tag sale' : 'tag';
     var tagText = p.old ? 'SALE' : p.tag;
-    return '<div class="card" data-go="' + p.id + '">' +
-      '<div class="thumb" style="background:' + thumbBg(p.cat) + '">' + p.emoji +
+    var delay = (idx % 3) * 0.12;
+    return '<div class="card reveal" style="transition-delay:' + delay + 's" data-go="' + p.id + '">' +
+      '<div class="thumb" style="background:' + thumbBg(p.cat) + '"><span class="emoji">' + p.emoji + '</span>' +
         (tagText ? '<span class="' + tagClass + '">' + tagText + '</span>' : '') +
       '</div>' +
       '<div class="body">' +
         '<div class="cat">' + p.cat + '</div>' +
         '<h3>' + p.name + '</h3>' +
         '<div class="desc">' + p.desc + '</div>' +
-        '<div class="price"><span class="yen">¥</span><b>' + p.price.toLocaleString("ja-JP") + '</b>' +
+        '<div class="price"><b>' + yen(p.price) + '</b>' +
           (p.old ? '<s>' + yen(p.old) + '</s>' : '') + '</div>' +
         '<button class="btn btn-primary add" data-add="' + p.id + '">カートに入れる</button>' +
       '</div>' +
     '</div>';
   }
   function thumbBg(cat) {
-    if (cat === "柑橘") return "linear-gradient(135deg,#FFE3B8,#FFD08A)";
-    if (cat === "ぶどう") return "linear-gradient(135deg,#E4D5F5,#CDB6EC)";
-    return "linear-gradient(135deg,#FFDCE0,#FBC5CE)";
+    if (cat === "トップス")   return "linear-gradient(135deg,#EFE9E1,#E0D5C6)";
+    if (cat === "ボトムス")   return "linear-gradient(135deg,#E3E7EB,#C9D1D9)";
+    if (cat === "ワンピース") return "linear-gradient(135deg,#F0E3DF,#E0C9C2)";
+    if (cat === "アウター")   return "linear-gradient(135deg,#E7E2DA,#CFC6B8)";
+    return "linear-gradient(135deg,#ECE4D6,#D9CBB4)";
   }
 
   // ===== ビュー：商品詳細 =====
   function viewDetail(id) {
     var p = findProduct(id);
-    if (!p) return '<div class="wrap block"><div class="empty"><div class="big">🍃</div><p>商品が見つかりませんでした。</p><a class="btn btn-primary" href="#/products">商品一覧へ</a></div></div>';
+    if (!p) return '<div class="wrap block"><div class="empty"><div class="big">🧵</div><p>アイテムが見つかりませんでした。</p><a class="btn btn-primary" href="#/products">アイテム一覧へ</a></div></div>';
+    var sizeChips = p.sizes.map(function (s, i) {
+      return '<button class="size-chip' + (i === 0 ? ' active' : '') + '" data-size="' + s + '">' + s + '</button>';
+    }).join("");
     return '<div class="wrap block">' +
-      '<div class="breadcrumb"><a href="#/">ホーム</a> ／ <a href="#/products">商品一覧</a> ／ ' + p.name + '</div>' +
+      '<div class="breadcrumb"><a href="#/">HOME</a> ／ <a href="#/products">ITEMS</a> ／ ' + p.name + '</div>' +
       '<div class="detail">' +
-        '<div class="hero-img" style="background:' + thumbBg(p.cat) + '">' + p.emoji + '</div>' +
+        '<div class="hero-img anim d1" style="background:' + thumbBg(p.cat) + '">' + p.emoji + '</div>' +
         '<div>' +
-          '<div class="cat">' + p.cat + '</div>' +
-          '<h1>' + p.name + '</h1>' +
-          '<div class="lead">' + p.desc + '</div>' +
-          '<div class="price-row"><span class="yen">¥</span><b>' + p.price.toLocaleString("ja-JP") + '</b>' +
-            (p.old ? '<s>' + yen(p.old) + '</s>' : '') + '<span style="color:var(--text-sub);font-size:13px">（税込）</span></div>' +
-          '<div class="spec">' +
-            specRow("内容量", p.unit) +
-            specRow("産地", p.origin) +
-            specRow("旬の時期", p.season) +
-            specRow("配送", "クール便（産地直送）") +
+          '<div class="cat anim d1">' + p.cat + '</div>' +
+          '<h1 class="anim d2">' + p.name + '</h1>' +
+          '<div class="lead anim d2">' + p.desc + '</div>' +
+          '<div class="price-row anim d3"><b>' + yen(p.price) + '</b>' +
+            (p.old ? '<s>' + yen(p.old) + '</s>' : '') + '<span class="tax">（税込）</span></div>' +
+          '<div class="size-row anim d3"><div class="lbl">SIZE</div><div class="sizes" id="sizeChips">' + sizeChips + '</div></div>' +
+          '<div class="spec anim d4">' +
+            specRow("素材", p.material) +
+            specRow("サイズ展開", p.sizes.join(" / ")) +
+            specRow("配送", "ご注文から2〜4日でお届け") +
+            specRow("交換", "サイズ交換1回無料") +
           '</div>' +
-          '<div class="detail-actions">' +
+          '<div class="detail-actions anim d5">' +
             '<div class="qty"><button data-q="-">−</button><input id="qtyInput" type="text" value="1" inputmode="numeric" readonly><button data-q="+">＋</button></div>' +
-            '<button class="btn btn-primary" id="addDetail">🛒 カートに入れる</button>' +
-            '<button class="btn btn-green" id="buyNow">今すぐ購入</button>' +
+            '<button class="btn btn-primary" id="addDetail">カートに入れる</button>' +
+            '<button class="btn btn-accent" id="buyNow">今すぐ購入 <span class="arw">→</span></button>' +
           '</div>' +
-          '<div style="color:var(--text-sub);font-size:13px">🚚 5,000円以上のご購入で送料無料／万が一の傷みは無料で再送・返金</div>' +
+          '<div style="color:var(--text-sub);font-size:12.5px">🚚 ¥11,000以上のご購入で送料無料／📏 サイズ交換1回無料</div>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -591,7 +705,17 @@
   function specRow(k, v) { return '<div><span>' + k + '</span><span>' + v + '</span></div>'; }
 
   function bindDetail(id) {
+    var p = findProduct(id);
+    if (!p) return;
+    var selectedSize = p.sizes[0];
     var qtyInput = document.getElementById("qtyInput");
+    Array.prototype.forEach.call(document.querySelectorAll(".size-chip"), function (ch) {
+      ch.addEventListener("click", function () {
+        Array.prototype.forEach.call(document.querySelectorAll(".size-chip"), function (o) { o.classList.remove("active"); });
+        ch.classList.add("active");
+        selectedSize = ch.getAttribute("data-size");
+      });
+    });
     Array.prototype.forEach.call(document.querySelectorAll('[data-q]'), function (b) {
       b.addEventListener("click", function () {
         var v = parseInt(qtyInput.value, 10) || 1;
@@ -601,11 +725,11 @@
       });
     });
     document.getElementById("addDetail").addEventListener("click", function () {
-      addToCart(id, parseInt(qtyInput.value, 10) || 1);
-      toast("🛒 カートに追加しました");
+      addToCart(id, selectedSize, parseInt(qtyInput.value, 10) || 1);
+      toast("👜 カートに追加しました（サイズ: " + selectedSize + "）");
     });
     document.getElementById("buyNow").addEventListener("click", function () {
-      addToCart(id, parseInt(qtyInput.value, 10) || 1);
+      addToCart(id, selectedSize, parseInt(qtyInput.value, 10) || 1);
       location.hash = "#/cart";
     });
   }
@@ -614,48 +738,49 @@
   function viewCart() {
     var items = cartItems();
     if (!items.length) {
-      return '<div class="wrap block"><h1 class="page-title">🛒 ショッピングカート</h1>' +
-        '<div class="empty"><div class="big">🛒</div><p>カートに商品がありません。<br>旬のフルーツを見てみませんか？</p>' +
-        '<a class="btn btn-primary" href="#/products">商品一覧へ</a></div></div>';
+      return '<div class="wrap block"><h1 class="page-title">👜 ショッピングカート</h1>' +
+        '<div class="empty"><div class="big">👜</div><p>カートにアイテムがありません。<br>今シーズンの新作を見てみませんか？</p>' +
+        '<a class="btn btn-primary" href="#/products">アイテム一覧へ <span class="arw">→</span></a></div></div>';
     }
     var sub = subtotal();
     var ship = shipFee(sub);
     var rows = items.map(function (it) {
       return '<div class="cart-item">' +
         '<div class="ci-img" style="background:' + thumbBg(it.p.cat) + '">' + it.p.emoji + '</div>' +
-        '<div><h4>' + it.p.name + '</h4><div class="ci-cat">' + it.p.cat + '｜' + it.p.unit + '</div>' +
+        '<div><h4>' + it.p.name + '</h4><div class="ci-cat">' + it.p.cat + '</div>' +
+          '<span class="ci-size">SIZE: ' + it.size + '</span>' +
           '<div class="ci-price">' + yen(it.p.price) + '</div></div>' +
         '<div class="ci-right">' +
-          '<div class="qty"><button data-dec="' + it.p.id + '">−</button>' +
-            '<input type="text" value="' + it.qty + '" readonly><button data-inc="' + it.p.id + '">＋</button></div>' +
-          '<button class="remove" data-rm="' + it.p.id + '">🗑 削除</button>' +
+          '<div class="qty"><button data-dec="' + it.key + '">−</button>' +
+            '<input type="text" value="' + it.qty + '" readonly><button data-inc="' + it.key + '">＋</button></div>' +
+          '<button class="remove" data-rm="' + it.key + '">🗑 削除</button>' +
         '</div>' +
       '</div>';
     }).join("");
 
     var freeNote = ship > 0
       ? '<div class="free-note">あと ' + yen(FREE_SHIP - sub) + ' で送料無料まで！ 🚚</div>'
-      : '<div class="free-note">🎉 送料無料が適用されています！</div>';
+      : '<div class="free-note">✦ 送料無料が適用されています ✦</div>';
 
-    return '<div class="wrap block"><h1 class="page-title">🛒 ショッピングカート</h1>' +
-      '<p style="color:var(--text-sub);margin-bottom:20px">' + cartCount() + '点の商品</p>' +
+    return '<div class="wrap block"><h1 class="page-title">👜 ショッピングカート</h1>' +
+      '<p style="color:var(--text-sub);margin-bottom:20px">' + cartCount() + '点のアイテム</p>' +
       '<div class="cart-layout"><div>' + rows +
-        '<a href="#/products" style="color:var(--orange);font-weight:700">← 買い物を続ける</a></div>' +
+        '<a href="#/products" style="color:var(--accent);font-weight:700;font-size:14px">← 買い物を続ける</a></div>' +
         '<div class="summary"><h3>ご注文内容</h3>' +
           '<div class="row"><span>小計</span><span>' + yen(sub) + '</span></div>' +
           '<div class="row"><span>送料</span><span>' + (ship === 0 ? '無料' : yen(ship)) + '</span></div>' +
           freeNote +
           '<div class="row total"><span>合計</span><b>' + yen(sub + ship) + '</b></div>' +
-          '<a class="btn btn-primary btn-block" style="margin-top:16px" href="#/checkout">レジに進む →</a>' +
+          '<a class="btn btn-accent btn-block" style="margin-top:16px" href="#/checkout">レジに進む <span class="arw">→</span></a>' +
         '</div>' +
       '</div></div>';
   }
   function bindCart() {
     Array.prototype.forEach.call(document.querySelectorAll('[data-inc]'), function (b) {
-      b.addEventListener("click", function () { setQty(b.getAttribute("data-inc"), (cart[b.getAttribute("data-inc")] || 0) + 1); router(); });
+      b.addEventListener("click", function () { var k = b.getAttribute("data-inc"); setQty(k, (cart[k] || 0) + 1); router(); });
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-dec]'), function (b) {
-      b.addEventListener("click", function () { setQty(b.getAttribute("data-dec"), (cart[b.getAttribute("data-dec")] || 0) - 1); router(); });
+      b.addEventListener("click", function () { var k = b.getAttribute("data-dec"); setQty(k, (cart[k] || 0) - 1); router(); });
     });
     Array.prototype.forEach.call(document.querySelectorAll('[data-rm]'), function (b) {
       b.addEventListener("click", function () { removeFromCart(b.getAttribute("data-rm")); toast("削除しました"); router(); });
@@ -666,26 +791,26 @@
   function viewCheckout() {
     var items = cartItems();
     if (!items.length) {
-      return '<div class="wrap block"><div class="empty"><div class="big">🛒</div><p>カートが空のためレジに進めません。</p><a class="btn btn-primary" href="#/products">商品一覧へ</a></div></div>';
+      return '<div class="wrap block"><div class="empty"><div class="big">👜</div><p>カートが空のためレジに進めません。</p><a class="btn btn-primary" href="#/products">アイテム一覧へ</a></div></div>';
     }
     var sub = subtotal(), ship = shipFee(sub);
     var miniRows = items.map(function (it) {
-      return '<div class="row"><span>' + it.p.emoji + ' ' + it.p.name + ' ×' + it.qty + '</span><span>' + yen(it.p.price * it.qty) + '</span></div>';
+      return '<div class="row"><span>' + it.p.emoji + ' ' + it.p.name + '（' + it.size + '）×' + it.qty + '</span><span>' + yen(it.p.price * it.qty) + '</span></div>';
     }).join("");
 
     return '<div class="wrap block"><h1 class="page-title">お客様情報の入力</h1>' +
       '<p style="color:var(--text-sub);margin-bottom:20px">お届け先とお支払い方法をご入力ください。<span style="color:var(--danger)">＊</span>は必須項目です。</p>' +
       '<form id="checkoutForm" novalidate><div class="checkout-layout"><div>' +
         '<div class="form-card" style="margin-bottom:20px"><h3>お届け先</h3><div class="hint">商品のお届け先を入力してください。</div>' +
-          field("name", "お名前", "例：日向 太郎", true) +
+          field("name", "お名前", "例：美里 亜衣", true) +
           '<div class="grid2">' + field("zip", "郵便番号", "1500001", true) + field("tel", "電話番号", "09012345678", true) + '</div>' +
-          field("addr", "ご住所", "例：東京都渋谷区神宮前1-2-3 ひなたマンション101", true) +
-          field("email", "メールアドレス", "example@hinata.jp", true) +
+          field("addr", "ご住所", "例：東京都渋谷区神宮前1-2-3 ミリアレジデンス101", true) +
+          field("email", "メールアドレス", "example@millia.jp", true) +
         '</div>' +
         '<div class="form-card"><h3>お支払い方法</h3><div class="hint">デモのため実際の請求は発生しません。</div>' +
           '<div class="pay-opts">' +
-            '<label class="pay-opt"><input type="radio" name="pay" value="代金引換" checked> 代金引換（現金）</label>' +
-            '<label class="pay-opt"><input type="radio" name="pay" value="クレジットカード"> クレジットカード</label>' +
+            '<label class="pay-opt"><input type="radio" name="pay" value="クレジットカード" checked> クレジットカード</label>' +
+            '<label class="pay-opt"><input type="radio" name="pay" value="代金引換"> 代金引換（現金）</label>' +
             '<label class="pay-opt"><input type="radio" name="pay" value="銀行振込"> 銀行振込</label>' +
           '</div>' +
         '</div>' +
@@ -694,7 +819,7 @@
         '<div class="row" style="border-top:1px solid var(--line);margin-top:6px;padding-top:10px"><span>小計</span><span>' + yen(sub) + '</span></div>' +
         '<div class="row"><span>送料</span><span>' + (ship === 0 ? '無料' : yen(ship)) + '</span></div>' +
         '<div class="row total"><span>合計</span><b>' + yen(sub + ship) + '</b></div>' +
-        '<button type="submit" class="btn btn-green btn-block" style="margin-top:16px">注文を確定する</button>' +
+        '<button type="submit" class="btn btn-accent btn-block" style="margin-top:16px">注文を確定する</button>' +
         '<a href="#/cart" style="display:block;text-align:center;color:var(--text-sub);font-size:13px;margin-top:12px">← カートに戻る</a>' +
       '</div>' +
       '</div></form></div>';
@@ -740,8 +865,8 @@
         email: document.getElementById("f_email").value.trim(),
         pay: pay, sub: sub, ship: ship, total: sub + ship, count: cartCount()
       };
-      try { sessionStorage.setItem("hinata_order", JSON.stringify(order)); } catch (e) {}
-      cart = {}; saveCart();
+      try { sessionStorage.setItem("millia_order", JSON.stringify(order)); } catch (e) {}
+      cart = {}; saveCart(false);
       location.hash = "#/complete";
     });
   }
@@ -750,31 +875,31 @@
     var p = function (n) { return ("0" + n).slice(-2); };
     var ymd = "" + d.getFullYear() + p(d.getMonth() + 1) + p(d.getDate());
     var rnd = Math.floor(1000 + Math.random() * 9000);
-    return "HN-" + ymd + "-" + rnd;
+    return "ML-" + ymd + "-" + rnd;
   }
 
   // ===== ビュー：注文完了 =====
   function viewComplete() {
     var order = null;
-    try { order = JSON.parse(sessionStorage.getItem("hinata_order")); } catch (e) {}
+    try { order = JSON.parse(sessionStorage.getItem("millia_order")); } catch (e) {}
     if (!order) {
-      return '<div class="wrap block"><div class="empty"><div class="big">🍊</div><p>ご注文情報が見つかりませんでした。</p><a class="btn btn-primary" href="#/products">お買い物を続ける</a></div></div>';
+      return '<div class="wrap block"><div class="empty"><div class="big">✦</div><p>ご注文情報が見つかりませんでした。</p><a class="btn btn-primary" href="#/products">お買い物を続ける</a></div></div>';
     }
     return '<div class="wrap block"><div class="complete">' +
-      '<div class="check">✓</div>' +
-      '<h1>ご注文ありがとうございます！</h1>' +
-      '<p>' + esc(order.name) + ' 様、ご注文を承りました。<br>確認メールを ' + esc(order.email) + ' 宛にお送りしました（デモ）。</p>' +
-      '<div class="order-box">' +
+      '<div class="check anim d1">M</div>' +
+      '<h1 class="anim d2">ご注文ありがとうございます</h1>' +
+      '<p class="anim d3">' + esc(order.name) + ' 様、ご注文を承りました。<br>確認メールを ' + esc(order.email) + ' 宛にお送りしました（デモ）。</p>' +
+      '<div class="order-box anim d4">' +
         '<div class="onum">' + order.num + '</div>' +
-        '<div class="olabel">ご注文番号</div>' +
-        '<div class="row"><span>商品点数</span><span>' + order.count + '点</span></div>' +
+        '<div class="olabel">ORDER NUMBER</div>' +
+        '<div class="row"><span>アイテム点数</span><span>' + order.count + '点</span></div>' +
         '<div class="row"><span>小計</span><span>' + yen(order.sub) + '</span></div>' +
         '<div class="row"><span>送料</span><span>' + (order.ship === 0 ? '無料' : yen(order.ship)) + '</span></div>' +
         '<div class="row"><span>お支払い方法</span><span>' + esc(order.pay) + '</span></div>' +
-        '<div class="row" style="font-weight:800;color:var(--orange)"><span>お支払い合計</span><span>' + yen(order.total) + '</span></div>' +
+        '<div class="row" style="font-weight:800;color:var(--accent)"><span>お支払い合計</span><span>' + yen(order.total) + '</span></div>' +
       '</div>' +
-      '<p style="font-size:13px">商品は契約農家より産地直送でお届けします。到着まで今しばらくお待ちください🍊</p>' +
-      '<a class="btn btn-primary" style="margin-top:14px" href="#/products">お買い物を続ける</a>' +
+      '<p style="font-size:13px" class="anim d5">商品はオリジナルボックスに包んで、丁寧にお届けします ✦</p>' +
+      '<a class="btn btn-primary anim d5" style="margin-top:14px" href="#/products">お買い物を続ける <span class="arw">→</span></a>' +
     '</div></div>';
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]; }); }
@@ -784,8 +909,11 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-add]'), function (b) {
       b.addEventListener("click", function (e) {
         e.stopPropagation();
-        addToCart(b.getAttribute("data-add"), 1);
-        toast("🛒 カートに追加しました");
+        var id = b.getAttribute("data-add");
+        var p = findProduct(id);
+        var size = p ? p.sizes[0] : "FREE";
+        addToCart(id, size, 1);
+        toast("👜 カートに追加しました（サイズ: " + size + "）");
       });
     });
   }
@@ -797,7 +925,7 @@
 
   // ===== 起動 =====
   initTheme();
-  updateBadge();
+  updateBadge(false);
   window.addEventListener("hashchange", router);
   router();
 })();
