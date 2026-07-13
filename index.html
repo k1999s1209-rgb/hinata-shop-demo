@@ -106,7 +106,7 @@
     display: inline-flex; align-items: center; justify-content: center; gap: 8px;
     border: none; cursor: pointer; font-family: inherit; font-weight: 700; font-size: 14px;
     letter-spacing: .08em; padding: 14px 26px; border-radius: 999px;
-    transition: transform .18s, box-shadow .25s, background .25s, letter-spacing .25s;
+    transition: transform .18s, box-shadow .25s, background .25s;
   }
   .btn:active { transform: scale(.97); }
   .btn .arw { display: inline-block; transition: transform .25s; }
@@ -138,21 +138,21 @@
   }
   .hero p { color: var(--text-sub); font-size: 16px; margin-bottom: 30px; max-width: 440px; }
   .hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
-  .hero-art { position: relative; aspect-ratio: 1/1; max-width: 440px; margin-left: auto; }
+  .hero-art { position: relative; aspect-ratio: 1/1; max-width: 460px; margin-left: auto; }
   .hero-art .bigM {
     position: absolute; inset: 0; display: grid; place-items: center;
     font-family: var(--serif); font-style: italic; font-size: 300px; line-height: 1;
     color: color-mix(in srgb, var(--ink) 8%, transparent); user-select: none;
   }
   .float-card {
-    position: absolute; background: var(--surface); border: 1px solid var(--line);
-    border-radius: 18px; box-shadow: var(--shadow); display: grid; place-items: center;
+    position: absolute; background: var(--surface); border: 4px solid var(--surface);
+    border-radius: 18px; box-shadow: var(--shadow); overflow: hidden;
     animation: floaty 5.5s ease-in-out infinite;
   }
-  .fc1 { width: 150px; height: 180px; font-size: 74px; top: 4%; left: 4%; --r: -7deg; }
-  .fc2 { width: 130px; height: 155px; font-size: 62px; bottom: 8%; left: 32%; --r: 5deg; animation-delay: 1.2s; }
-  .fc3 { width: 165px; height: 195px; font-size: 84px; top: 18%; right: 2%; --r: 3deg; animation-delay: 2.2s; }
-  .float-card .lbl { position: absolute; bottom: 10px; font-size: 10px; letter-spacing: .22em; color: var(--text-sub); font-weight: 700; }
+  .float-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .fc1 { width: 168px; height: 210px; top: 2%; left: 2%; --r: -7deg; z-index: 2; }
+  .fc2 { width: 148px; height: 185px; bottom: 6%; left: 30%; --r: 5deg; animation-delay: 1.2s; z-index: 3; }
+  .fc3 { width: 180px; height: 225px; top: 16%; right: 0; --r: 3deg; animation-delay: 2.2s; z-index: 2; }
 
   /* ===== Marquee ===== */
   .marquee { background: var(--ink); color: var(--bg); overflow: hidden; padding: 13px 0; }
@@ -179,9 +179,7 @@
   .feature p { color: var(--text-sub); font-size: 13px; }
 
   /* About strip */
-  .about {
-    text-align: center; max-width: 640px; margin: 0 auto; padding: 10px 20px;
-  }
+  .about { text-align: center; max-width: 640px; margin: 0 auto; padding: 10px 20px; }
   .about .m { font-family: var(--serif); font-style: italic; font-size: 44px; color: var(--accent); line-height: 1; }
   .about h2 { font-size: 24px; margin: 14px 0 12px; }
   .about p { color: var(--text-sub); font-size: 15px; }
@@ -204,12 +202,12 @@
     transition: transform .28s cubic-bezier(.22,.8,.3,1), box-shadow .28s; display: flex; flex-direction: column;
   }
   .card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
-  .card .thumb { aspect-ratio: 4/4.6; display: grid; place-items: center; position: relative; overflow: hidden; }
-  .card .thumb .emoji { font-size: 84px; transition: transform .45s cubic-bezier(.22,.8,.3,1); }
-  .card:hover .thumb .emoji { transform: scale(1.18) rotate(-6deg); }
+  .card .thumb { aspect-ratio: 4/4.8; position: relative; overflow: hidden; background: var(--surface-2); }
+  .card .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.22,.8,.3,1); }
+  .card:hover .thumb img { transform: scale(1.07); }
   .card .tag {
     position: absolute; top: 14px; left: 14px; background: var(--ink); color: var(--bg);
-    font-size: 11px; font-weight: 800; letter-spacing: .12em; padding: 4px 12px; border-radius: 999px;
+    font-size: 11px; font-weight: 800; letter-spacing: .12em; padding: 4px 12px; border-radius: 999px; z-index: 2;
   }
   .card .tag.sale { background: var(--danger); color: #fff; }
   .card .body { padding: 18px 18px 20px; display: flex; flex-direction: column; flex: 1; }
@@ -221,12 +219,15 @@
   .card .price s { color: var(--text-sub); font-size: 13px; }
   .card .add { margin-top: 14px; }
 
-  /* Product detail */
+  /* Product detail + gallery */
   .detail { display: grid; grid-template-columns: 1fr 1fr; gap: 38px; align-items: start; }
-  .detail .hero-img {
-    border-radius: var(--radius); aspect-ratio: 4/4.8;
-    display: grid; place-items: center; font-size: 180px; box-shadow: var(--shadow-sm); overflow: hidden;
-  }
+  .g-main { border-radius: var(--radius); overflow: hidden; aspect-ratio: 4/5; box-shadow: var(--shadow-sm); background: var(--surface-2); }
+  .g-main img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .g-thumbs { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .g-thumb { width: 74px; height: 92px; border-radius: 10px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border .2s, transform .2s; background: var(--surface-2); }
+  .g-thumb:hover { transform: translateY(-3px); }
+  .g-thumb.active { border-color: var(--accent); }
+  .g-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .detail .cat { color: var(--accent); font-weight: 800; font-size: 12px; letter-spacing: .24em; }
   .detail h1 { font-size: 28px; margin: 8px 0 12px; font-family: inherit; font-weight: 800; }
   .detail .lead { color: var(--text-sub); margin-bottom: 20px; font-size: 15px; }
@@ -245,13 +246,28 @@
   .size-chip:hover { border-color: var(--accent); transform: translateY(-2px); }
   .size-chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
   .spec { border-top: 1px solid var(--line); margin-top: 8px; }
-  .spec div { display: flex; justify-content: space-between; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
-  .spec div span:first-child { color: var(--text-sub); }
+  .spec > div { display: flex; justify-content: space-between; padding: 11px 2px; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .spec > div span:first-child { color: var(--text-sub); }
+  .size-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0 4px; }
+  .size-table caption { text-align: left; font-weight: 700; font-size: 13px; letter-spacing: .1em; padding-bottom: 6px; }
+  .size-table th { color: var(--text-sub); font-weight: 700; letter-spacing: .08em; }
+  .size-table th, .size-table td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: center; }
+  .size-table td:first-child, .size-table th:first-child { text-align: left; font-weight: 800; }
   .qty { display: flex; align-items: center; border: 1.5px solid var(--line); border-radius: 999px; overflow: hidden; width: fit-content; background: var(--surface); }
   .qty button { border: none; background: transparent; width: 44px; height: 44px; font-size: 20px; cursor: pointer; color: var(--text); font-family: inherit; transition: background .2s; }
   .qty button:hover { background: var(--ink); color: var(--bg); }
   .qty input { width: 54px; text-align: center; border: none; background: transparent; font-size: 16px; font-weight: 800; color: var(--text); font-family: inherit; }
   .detail-actions { display: flex; gap: 12px; align-items: center; margin: 22px 0; flex-wrap: wrap; }
+
+  /* Lookbook */
+  .lookbook-grid { columns: 3 240px; column-gap: 16px; }
+  .lb-item { break-inside: avoid; margin-bottom: 16px; border-radius: var(--radius-sm); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--surface-2); }
+  .lb-item img { width: 100%; display: block; transition: transform .5s cubic-bezier(.22,.8,.3,1); }
+  .lb-item:hover img { transform: scale(1.045); }
+  .look3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .look3 .lk { border-radius: var(--radius-sm); overflow: hidden; aspect-ratio: 3/4; box-shadow: var(--shadow-sm); background: var(--surface-2); }
+  .look3 .lk img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s cubic-bezier(.22,.8,.3,1); }
+  .look3 .lk:hover img { transform: scale(1.06); }
 
   /* Cart */
   .cart-layout { display: grid; grid-template-columns: 1fr 340px; gap: 26px; align-items: start; }
@@ -260,7 +276,8 @@
     background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
     padding: 14px; margin-bottom: 14px; box-shadow: var(--shadow-sm);
   }
-  .cart-item .ci-img { width: 84px; height: 96px; border-radius: 12px; display: grid; place-items: center; font-size: 42px; }
+  .cart-item .ci-img { width: 84px; height: 100px; border-radius: 12px; overflow: hidden; background: var(--surface-2); }
+  .cart-item .ci-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cart-item h4 { font-size: 15px; margin-bottom: 2px; }
   .cart-item .ci-cat { color: var(--text-sub); font-size: 12px; }
   .cart-item .ci-size { display: inline-block; background: var(--surface-2); border-radius: 6px; font-size: 11px; font-weight: 800; padding: 2px 8px; margin-top: 4px; letter-spacing: .08em; }
@@ -346,7 +363,7 @@
   /* Responsive */
   @media (max-width: 860px) {
     .hero-inner { grid-template-columns: 1fr; }
-    .hero-art { max-width: 320px; margin: 0 auto; }
+    .hero-art { max-width: 340px; margin: 0 auto; }
     .hero-art .bigM { font-size: 210px; }
     .hero h1 { font-size: 36px; }
     .features { grid-template-columns: 1fr; }
@@ -355,12 +372,14 @@
     .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
     .summary { position: static; }
     .foot-grid { grid-template-columns: 1fr; }
+    .look3 { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 520px) {
     .grid { grid-template-columns: 1fr; }
     .nav a.navlink { display: none; }
     .grid2 { grid-template-columns: 1fr; }
     .hero h1 { font-size: 30px; }
+    .look3 { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -373,7 +392,7 @@
     <div class="nav-spacer"></div>
     <a href="#/" class="navlink">HOME</a>
     <a href="#/products" class="navlink">ITEMS</a>
-    <a href="#/products?cat=アウター" class="navlink">OUTER</a>
+    <a href="#/lookbook" class="navlink">LOOKBOOK</a>
     <button class="icon-btn" id="themeBtn" title="テーマ切替" aria-label="テーマ切替">🌙</button>
     <a href="#/cart" class="icon-btn cart-btn" title="カート" aria-label="カート">👜
       <span class="cart-badge hidden" id="cartBadge">0</span>
@@ -393,13 +412,13 @@
       <div>
         <h4>SHOP</h4>
         <a href="#/products">アイテム一覧</a>
-        <a href="#/products?cat=トップス">トップス</a>
-        <a href="#/products?cat=アウター">アウター</a>
+        <a href="#/products?cat=Tシャツ">Tシャツ</a>
+        <a href="#/products?cat=バッグ">バッグ</a>
         <a href="#/cart">カート</a>
       </div>
       <div>
         <h4>ABOUT</h4>
-        <a href="#/">ブランドについて</a>
+        <a href="#/lookbook">LOOKBOOK</a>
         <a href="#/">配送・送料について</a>
         <a href="#/">サイズ交換・返品</a>
       </div>
@@ -416,15 +435,26 @@
 
   // ===== データ =====
   var PRODUCTS = [
-    { id: "shirt",  name: "オーバーサイズシャツ",       cat: "トップス",  emoji: "👕", price: 8900,  old: null,  sizes: ["S","M","L"],  material: "コットン100%",        tag: "人気",  desc: "とろみのある上質コットンで仕立てた、一枚で様になるリラックスシルエット。" },
-    { id: "knit",   name: "カシミヤタッチニット",       cat: "トップス",  emoji: "🧶", price: 12800, old: null,  sizes: ["S","M","L"],  material: "アクリル/ウール",     tag: "NEW",   desc: "肌ざわりはカシミヤのよう。ふんわり軽いのに暖かい、秋冬の主役ニット。" },
-    { id: "dress",  name: "プリーツロングワンピース",   cat: "ワンピース", emoji: "👗", price: 16500, old: null,  sizes: ["S","M","L"],  material: "ポリエステル100%",    tag: "NEW",   desc: "歩くたびに揺れる繊細なプリーツ。一枚で完成する、洗練のロングドレス。" },
-    { id: "denim",  name: "ハイウエストワイドデニム",   cat: "ボトムス",  emoji: "👖", price: 11900, old: null,  sizes: ["S","M","L"],  material: "コットン98% PU2%",   tag: "人気",  desc: "脚のラインを拾わないワイドストレート。ハイウエストで脚長効果も。" },
-    { id: "coat",   name: "ウールロングコート",         cat: "アウター",  emoji: "🧥", price: 24800, old: 29800, sizes: ["S","M","L"],  material: "ウール90% ナイロン10%", tag: "SALE", desc: "上質なメルトンウールを贅沢に。かっちりしすぎない、大人のロングコート。" },
-    { id: "tote",   name: "レザーミニトート",           cat: "小物",      emoji: "👜", price: 19800, old: null,  sizes: ["FREE"],       material: "牛革",                tag: "限定",  desc: "職人が一つずつ仕立てた本革トート。エイジングも楽しめる、一生ものの相棒。" }
+    { id: "logo-red",     name: "MiliA ロゴTシャツ",       color: "RED",   cat: "Tシャツ", price: 4950, old: null, sizes: ["S","M","L"], material: "コットン100%", tag: "人気", sizeChart: true,
+      desc: "ブランドの顔・セリフロゴを大きく配したステートメントTee。発色のいいレッドがコーデの主役になる一枚。",
+      imgs: ["img/m1.jpg","img/s7.jpg"] },
+    { id: "rabbit-blue",  name: "パズルラビットTシャツ",   color: "BLUE",  cat: "Tシャツ", price: 5280, old: null, sizes: ["S","M","L"], material: "コットン100%", tag: "NEW", sizeChart: true,
+      desc: "「未完成」を象徴するパズルピースのラビットを大胆にプリント。ロイヤルブルー×ホワイトの映える一枚。",
+      imgs: ["img/m2.jpg","img/s6.jpg","img/s12.jpg"] },
+    { id: "tote-black",   name: "ラビット トートバッグ",   color: "BLACK", cat: "バッグ",  price: 3960, old: null, sizes: ["FREE"], material: "コットンキャンバス", tag: "限定", sizeChart: false,
+      desc: "整列するパズルラビットが目を引くキャンバストート。A4もすっぽり入る、毎日の相棒。",
+      imgs: ["img/s19.jpg","img/s11.jpg","img/s18.jpg"] },
+    { id: "logo-black",   name: "MiliA ロゴTシャツ",       color: "BLACK", cat: "Tシャツ", price: 4950, old: null, sizes: ["S","M","L"], material: "コットン100%", tag: "人気", sizeChart: true,
+      desc: "どんなボトムスにも合わせやすい万能ブラック。ユニセックスで着られるレギュラーシルエット。",
+      imgs: ["img/m3.jpg","img/s5.jpg","img/s8.jpg","img/s2.jpg"] },
+    { id: "rabbit-white", name: "パズルラビットTシャツ",   color: "WHITE", cat: "Tシャツ", price: 5280, old: null, sizes: ["S","M","L"], material: "コットン100%", tag: "NEW", sizeChart: true,
+      desc: "クリーンなホワイトにモノトーンのラビットが映える。一枚でもレイヤードでも様になる定番。",
+      imgs: ["img/m4.jpg","img/s15.jpg","img/s13.jpg"] }
   ];
 
-  var CATS = ["すべて", "トップス", "ボトムス", "ワンピース", "アウター", "小物"];
+  var CATS = ["すべて", "Tシャツ", "バッグ"];
+  var SIZE_CHART = [["S",65,49,42,19],["M",69,52,46,20],["L",73,55,50,22]];
+  var LOOKS = ["img/s3.jpg","img/s16.jpg","img/s10.jpg","img/s9.jpg","img/s4.jpg","img/s17.jpg","img/s14.jpg"];
   var FREE_SHIP = 11000;
   var SHIP_FEE = 550;
 
@@ -554,6 +584,7 @@
     if (seg.length === 0) { app.innerHTML = viewHome(); bindHome(); }
     else if (seg[0] === "products") { app.innerHTML = viewProducts(r.query.cat || "すべて"); bindProducts(); }
     else if (seg[0] === "product") { app.innerHTML = viewDetail(seg[1]); bindDetail(seg[1]); }
+    else if (seg[0] === "lookbook") { app.innerHTML = viewLookbook(); }
     else if (seg[0] === "cart") { app.innerHTML = viewCart(); bindCart(); }
     else if (seg[0] === "checkout") { app.innerHTML = viewCheckout(); bindCheckout(); }
     else if (seg[0] === "complete") { app.innerHTML = viewComplete(); }
@@ -569,23 +600,23 @@
   // ===== ビュー：ホーム =====
   function viewHome() {
     var picks = PRODUCTS.slice(0, 3);
-    var marqueeSet = '<span>NEW COLLECTION 2026 <i>✦</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>✦</i></span><span>¥11,000以上で送料無料 <i>✦</i></span><span>サイズ交換 無料 <i>✦</i></span>';
+    var marqueeSet = '<span>NEW COLLECTION 2026 SS <i>✦</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>✦</i></span><span>¥11,000以上で送料無料 <i>✦</i></span><span>サイズ交換 無料 <i>✦</i></span>';
     return '' +
     '<section class="hero"><div class="wrap hero-inner">' +
       '<div>' +
-        '<div class="kicker anim d1">NEW COLLECTION 2026</div>' +
+        '<div class="kicker anim d1">2026 SS — 1st ITEM</div>' +
         '<h1 class="anim d2">纏う、<br><em>わたしらしさ</em>。</h1>' +
         '<p class="anim d3">MiliA（ミリア）-Unfinished Beauty- は、日常に寄り添う上質でミニマルなワードローブを提案します。未完成だから、美しい。そんな「途中のわたし」を愛せる毎日を。</p>' +
         '<div class="hero-cta anim d4">' +
           '<a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a>' +
-          '<a class="btn btn-ghost" href="#/products?cat=アウター">アウターを見る</a>' +
+          '<a class="btn btn-ghost" href="#/lookbook">LOOKBOOKを見る</a>' +
         '</div>' +
       '</div>' +
       '<div class="hero-art anim d3">' +
         '<div class="bigM">M</div>' +
-        '<div class="float-card fc1">👗<span class="lbl">DRESS</span></div>' +
-        '<div class="float-card fc2">👜<span class="lbl">BAG</span></div>' +
-        '<div class="float-card fc3">🧥<span class="lbl">OUTER</span></div>' +
+        '<div class="float-card fc1"><img src="img/m1.jpg" alt="MiliA ロゴTシャツ RED"></div>' +
+        '<div class="float-card fc2"><img src="img/m2.jpg" alt="パズルラビットTシャツ BLUE"></div>' +
+        '<div class="float-card fc3"><img src="img/m3.jpg" alt="MiliA ロゴTシャツ BLACK"></div>' +
       '</div>' +
     '</div></section>' +
 
@@ -600,9 +631,19 @@
     '</div></section>' +
 
     '<section class="block" style="padding-top:6px"><div class="wrap">' +
-      '<div class="sec-head reveal"><div class="kicker">PICK UP</div><h2>今シーズンの注目アイテム</h2><p>スタイリストが選ぶ、この秋の3着。</p></div>' +
+      '<div class="sec-head reveal"><div class="kicker">PICK UP</div><h2>2026 SS ファーストアイテム</h2><p>ブランドの始まりを飾る、こだわりのラインナップ。</p></div>' +
       '<div class="grid">' + picks.map(function (p, i) { return cardHTML(p, i); }).join("") + '</div>' +
       '<div style="text-align:center;margin-top:30px" class="reveal"><a class="btn btn-ghost" href="#/products">すべてのアイテムを見る <span class="arw">→</span></a></div>' +
+    '</div></section>' +
+
+    '<section class="block" style="padding-top:10px"><div class="wrap">' +
+      '<div class="sec-head reveal"><div class="kicker">LOOKBOOK</div><h2>ストリートスナップ</h2><p>MiliAのある日常を切り取りました。</p></div>' +
+      '<div class="look3">' +
+        LOOKS.slice(1, 4).map(function (src, i) {
+          return '<a href="#/lookbook" class="lk reveal" style="transition-delay:' + (i * 0.12) + 's"><img src="' + src + '" alt="MiliA LOOKBOOK" loading="lazy"></a>';
+        }).join("") +
+      '</div>' +
+      '<div style="text-align:center;margin-top:26px" class="reveal"><a class="btn btn-ghost" href="#/lookbook">LOOKBOOKをもっと見る <span class="arw">→</span></a></div>' +
     '</div></section>' +
 
     '<section class="block" style="padding-top:10px"><div class="wrap">' +
@@ -626,7 +667,7 @@
       return '<button class="chip' + (c === cat ? ' active' : '') + '" data-cat="' + c + '">' + c + '</button>';
     }).join("");
     return '<div class="wrap block">' +
-      '<div class="sec-head"><div class="kicker">ALL ITEMS</div><h2>アイテム一覧</h2><p>上質でミニマルな定番を取り揃えています。</p></div>' +
+      '<div class="sec-head"><div class="kicker">ALL ITEMS</div><h2>アイテム一覧</h2><p>2026 SS ファーストコレクション。</p></div>' +
       '<div class="filters">' + chips + '</div>' +
       (list.length ? '<div class="grid">' + list.map(function (p, i) { return cardHTML(p, i); }).join("") + '</div>'
                    : '<div class="empty"><div class="big">🧵</div><p>このカテゴリのアイテムは準備中です。</p></div>') +
@@ -647,11 +688,11 @@
     var tagText = p.old ? 'SALE' : p.tag;
     var delay = (idx % 3) * 0.12;
     return '<div class="card reveal" style="transition-delay:' + delay + 's" data-go="' + p.id + '">' +
-      '<div class="thumb" style="background:' + thumbBg(p.cat) + '"><span class="emoji">' + p.emoji + '</span>' +
+      '<div class="thumb"><img src="' + p.imgs[0] + '" alt="' + p.name + ' ' + p.color + '" loading="lazy">' +
         (tagText ? '<span class="' + tagClass + '">' + tagText + '</span>' : '') +
       '</div>' +
       '<div class="body">' +
-        '<div class="cat">' + p.cat + '</div>' +
+        '<div class="cat">' + p.cat + ' ／ ' + p.color + '</div>' +
         '<h3>' + p.name + '</h3>' +
         '<div class="desc">' + p.desc + '</div>' +
         '<div class="price"><b>' + yen(p.price) + '</b>' +
@@ -659,13 +700,6 @@
         '<button class="btn btn-primary add" data-add="' + p.id + '">カートに入れる</button>' +
       '</div>' +
     '</div>';
-  }
-  function thumbBg(cat) {
-    if (cat === "トップス")   return "linear-gradient(135deg,#EFE9E1,#E0D5C6)";
-    if (cat === "ボトムス")   return "linear-gradient(135deg,#E3E7EB,#C9D1D9)";
-    if (cat === "ワンピース") return "linear-gradient(135deg,#F0E3DF,#E0C9C2)";
-    if (cat === "アウター")   return "linear-gradient(135deg,#E7E2DA,#CFC6B8)";
-    return "linear-gradient(135deg,#ECE4D6,#D9CBB4)";
   }
 
   // ===== ビュー：商品詳細 =====
@@ -675,12 +709,26 @@
     var sizeChips = p.sizes.map(function (s, i) {
       return '<button class="size-chip' + (i === 0 ? ' active' : '') + '" data-size="' + s + '">' + s + '</button>';
     }).join("");
+    var thumbs = p.imgs.map(function (src, i) {
+      return '<div class="g-thumb' + (i === 0 ? ' active' : '') + '" data-img="' + src + '"><img src="' + src + '" alt="' + p.name + ' 写真' + (i + 1) + '" loading="lazy"></div>';
+    }).join("");
+    var sizeTable = "";
+    if (p.sizeChart) {
+      sizeTable = '<table class="size-table"><caption>SIZE CHART（cm）</caption>' +
+        '<tr><th>サイズ</th><th>着丈</th><th>身幅</th><th>肩幅</th><th>袖丈</th></tr>' +
+        SIZE_CHART.map(function (r) {
+          return '<tr><td>' + r[0] + '</td><td>' + r[1] + '</td><td>' + r[2] + '</td><td>' + r[3] + '</td><td>' + r[4] + '</td></tr>';
+        }).join("") + '</table>';
+    }
     return '<div class="wrap block">' +
-      '<div class="breadcrumb"><a href="#/">HOME</a> ／ <a href="#/products">ITEMS</a> ／ ' + p.name + '</div>' +
+      '<div class="breadcrumb"><a href="#/">HOME</a> ／ <a href="#/products">ITEMS</a> ／ ' + p.name + '（' + p.color + '）</div>' +
       '<div class="detail">' +
-        '<div class="hero-img anim d1" style="background:' + thumbBg(p.cat) + '">' + p.emoji + '</div>' +
+        '<div class="anim d1">' +
+          '<div class="g-main"><img id="mainImg" src="' + p.imgs[0] + '" alt="' + p.name + ' ' + p.color + '"></div>' +
+          (p.imgs.length > 1 ? '<div class="g-thumbs">' + thumbs + '</div>' : '') +
+        '</div>' +
         '<div>' +
-          '<div class="cat anim d1">' + p.cat + '</div>' +
+          '<div class="cat anim d1">' + p.cat + ' ／ ' + p.color + '</div>' +
           '<h1 class="anim d2">' + p.name + '</h1>' +
           '<div class="lead anim d2">' + p.desc + '</div>' +
           '<div class="price-row anim d3"><b>' + yen(p.price) + '</b>' +
@@ -688,10 +736,11 @@
           '<div class="size-row anim d3"><div class="lbl">SIZE</div><div class="sizes" id="sizeChips">' + sizeChips + '</div></div>' +
           '<div class="spec anim d4">' +
             specRow("素材", p.material) +
-            specRow("サイズ展開", p.sizes.join(" / ")) +
+            specRow("カラー", p.color) +
             specRow("配送", "ご注文から2〜4日でお届け") +
             specRow("交換", "サイズ交換1回無料") +
           '</div>' +
+          '<div class="anim d4">' + sizeTable + '</div>' +
           '<div class="detail-actions anim d5">' +
             '<div class="qty"><button data-q="-">−</button><input id="qtyInput" type="text" value="1" inputmode="numeric" readonly><button data-q="+">＋</button></div>' +
             '<button class="btn btn-primary" id="addDetail">カートに入れる</button>' +
@@ -709,6 +758,14 @@
     if (!p) return;
     var selectedSize = p.sizes[0];
     var qtyInput = document.getElementById("qtyInput");
+    var mainImg = document.getElementById("mainImg");
+    Array.prototype.forEach.call(document.querySelectorAll(".g-thumb"), function (th) {
+      th.addEventListener("click", function () {
+        Array.prototype.forEach.call(document.querySelectorAll(".g-thumb"), function (o) { o.classList.remove("active"); });
+        th.classList.add("active");
+        mainImg.src = th.getAttribute("data-img");
+      });
+    });
     Array.prototype.forEach.call(document.querySelectorAll(".size-chip"), function (ch) {
       ch.addEventListener("click", function () {
         Array.prototype.forEach.call(document.querySelectorAll(".size-chip"), function (o) { o.classList.remove("active"); });
@@ -734,20 +791,33 @@
     });
   }
 
+  // ===== ビュー：LOOKBOOK =====
+  function viewLookbook() {
+    return '<div class="wrap block">' +
+      '<div class="sec-head"><div class="kicker">LOOKBOOK</div><h2>2026 SS — Street Snap</h2><p>MiliAのある日常を切り取りました。</p></div>' +
+      '<div class="lookbook-grid">' +
+        LOOKS.map(function (src, i) {
+          return '<div class="lb-item reveal" style="transition-delay:' + ((i % 3) * 0.1) + 's"><img src="' + src + '" alt="MiliA LOOKBOOK ' + (i + 1) + '" loading="lazy"></div>';
+        }).join("") +
+      '</div>' +
+      '<div style="text-align:center;margin-top:30px"><a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a></div>' +
+    '</div>';
+  }
+
   // ===== ビュー：カート =====
   function viewCart() {
     var items = cartItems();
     if (!items.length) {
       return '<div class="wrap block"><h1 class="page-title">👜 ショッピングカート</h1>' +
-        '<div class="empty"><div class="big">👜</div><p>カートにアイテムがありません。<br>今シーズンの新作を見てみませんか？</p>' +
+        '<div class="empty"><div class="big">👜</div><p>カートにアイテムがありません。<br>2026 SS の新作を見てみませんか？</p>' +
         '<a class="btn btn-primary" href="#/products">アイテム一覧へ <span class="arw">→</span></a></div></div>';
     }
     var sub = subtotal();
     var ship = shipFee(sub);
     var rows = items.map(function (it) {
       return '<div class="cart-item">' +
-        '<div class="ci-img" style="background:' + thumbBg(it.p.cat) + '">' + it.p.emoji + '</div>' +
-        '<div><h4>' + it.p.name + '</h4><div class="ci-cat">' + it.p.cat + '</div>' +
+        '<div class="ci-img"><img src="' + it.p.imgs[0] + '" alt="' + it.p.name + '" loading="lazy"></div>' +
+        '<div><h4>' + it.p.name + '</h4><div class="ci-cat">' + it.p.cat + ' ／ ' + it.p.color + '</div>' +
           '<span class="ci-size">SIZE: ' + it.size + '</span>' +
           '<div class="ci-price">' + yen(it.p.price) + '</div></div>' +
         '<div class="ci-right">' +
@@ -795,7 +865,7 @@
     }
     var sub = subtotal(), ship = shipFee(sub);
     var miniRows = items.map(function (it) {
-      return '<div class="row"><span>' + it.p.emoji + ' ' + it.p.name + '（' + it.size + '）×' + it.qty + '</span><span>' + yen(it.p.price * it.qty) + '</span></div>';
+      return '<div class="row"><span>' + it.p.name + '（' + it.p.color + '・' + it.size + '）×' + it.qty + '</span><span>' + yen(it.p.price * it.qty) + '</span></div>';
     }).join("");
 
     return '<div class="wrap block"><h1 class="page-title">お客様情報の入力</h1>' +
