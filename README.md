@@ -1,3 +1,3 @@
-# MilliA ミリア（アパレルECデザインデモ）
+# MiliA -Unfinished Beauty-（アパレルECデザインデモ）
 
-アパレルブランド「MilliA」の架空ECサイト・デザインデモです。
+アパレルブランド「MiliA」の架空ECサイト・デザインデモです。

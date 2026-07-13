@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MilliA ミリア｜纏う、わたしらしさ。</title>
+<title>MiliA -Unfinished Beauty-</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%23141414'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' fill='%23F7F5F2' text-anchor='middle' font-style='italic'%3EM%3C/text%3E%3C/svg%3E">
 <style>
   :root {
@@ -80,7 +80,7 @@
   .nav { display: flex; align-items: center; gap: 18px; height: 68px; }
   .logo { display: flex; align-items: baseline; gap: 8px; font-family: var(--serif); font-size: 24px; font-style: italic; letter-spacing: .04em; }
   .logo b { color: var(--accent); font-style: italic; }
-  .logo .jp { font-size: 11px; font-style: normal; color: var(--text-sub); letter-spacing: .3em; font-family: inherit; }
+  .logo .jp { font-size: 10px; font-style: italic; color: var(--text-sub); letter-spacing: .16em; font-family: var(--serif); }
   .nav-spacer { flex: 1; }
   .nav a.navlink { color: var(--text-sub); font-weight: 700; font-size: 13px; letter-spacing: .14em; padding: 6px 4px; position: relative; }
   .nav a.navlink::after { content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1.5px; background: var(--accent); transition: width .25s; }
@@ -369,7 +369,7 @@
 
 <header>
   <div class="wrap nav">
-    <a href="#/" class="logo">Milli<b>A</b><span class="jp">ミリア</span></a>
+    <a href="#/" class="logo">Mili<b>A</b><span class="jp">-Unfinished Beauty-</span></a>
     <div class="nav-spacer"></div>
     <a href="#/" class="navlink">HOME</a>
     <a href="#/products" class="navlink">ITEMS</a>
@@ -387,8 +387,8 @@
   <div class="wrap">
     <div class="foot-grid">
       <div>
-        <div class="foot-logo">Milli<b>A</b> <span style="font-size:12px;font-style:normal;letter-spacing:.3em;color:var(--text-sub)">ミリア</span></div>
-        <p>「纏うたびに、わたしを好きになる。」日常に寄り添う、上質でミニマルなワードローブを提案するアパレルブランドです。</p>
+        <div class="foot-logo">Mili<b>A</b> <span style="font-size:12px;letter-spacing:.14em;color:var(--text-sub)">-Unfinished Beauty-</span></div>
+        <p>「未完成だから、美しい。」日常に寄り添う、上質でミニマルなワードローブを提案するアパレルブランドです。</p>
       </div>
       <div>
         <h4>SHOP</h4>
@@ -404,7 +404,7 @@
         <a href="#/">サイズ交換・返品</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 MilliA — DESIGN DEMO ｜ ¥11,000以上のご購入で送料無料</div>
+    <div class="foot-bottom">© 2026 MiliA -Unfinished Beauty- — DESIGN DEMO ｜ ¥11,000以上のご購入で送料無料</div>
   </div>
 </footer>
 
@@ -569,13 +569,13 @@
   // ===== ビュー：ホーム =====
   function viewHome() {
     var picks = PRODUCTS.slice(0, 3);
-    var marqueeSet = '<span>NEW COLLECTION 2026 <i>✦</i></span><span>Milli<i>A</i> — everyday, a little special <i>✦</i></span><span>¥11,000以上で送料無料 <i>✦</i></span><span>サイズ交換 無料 <i>✦</i></span>';
+    var marqueeSet = '<span>NEW COLLECTION 2026 <i>✦</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>✦</i></span><span>¥11,000以上で送料無料 <i>✦</i></span><span>サイズ交換 無料 <i>✦</i></span>';
     return '' +
     '<section class="hero"><div class="wrap hero-inner">' +
       '<div>' +
         '<div class="kicker anim d1">NEW COLLECTION 2026</div>' +
         '<h1 class="anim d2">纏う、<br><em>わたしらしさ</em>。</h1>' +
-        '<p class="anim d3">MilliA（ミリア）は、日常に寄り添う上質でミニマルなワードローブを提案します。飾らないのに、どこか特別。そんな毎日を。</p>' +
+        '<p class="anim d3">MiliA（ミリア）-Unfinished Beauty- は、日常に寄り添う上質でミニマルなワードローブを提案します。未完成だから、美しい。そんな「途中のわたし」を愛せる毎日を。</p>' +
         '<div class="hero-cta anim d4">' +
           '<a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a>' +
           '<a class="btn btn-ghost" href="#/products?cat=アウター">アウターを見る</a>' +
@@ -608,8 +608,8 @@
     '<section class="block" style="padding-top:10px"><div class="wrap">' +
       '<div class="about reveal">' +
         '<div class="m">M</div>' +
-        '<h2>纏うたびに、わたしを好きになる。</h2>' +
-        '<p>流行を追いかけるのではなく、あなたの「好き」に寄り添う服を。MilliAは素材と縫製にこだわり、長く愛せる定番をつくり続けます。</p>' +
+        '<h2>未完成だから、美しい。</h2>' +
+        '<p>完璧じゃなくていい。変わり続ける「途中のわたし」こそ、いちばん美しい。MiliAは素材と縫製にこだわり、あなたと一緒に育っていく定番をつくり続けます。</p>' +
       '</div>' +
     '</div></section>';
   }
@@ -805,7 +805,7 @@
           field("name", "お名前", "例：美里 亜衣", true) +
           '<div class="grid2">' + field("zip", "郵便番号", "1500001", true) + field("tel", "電話番号", "09012345678", true) + '</div>' +
           field("addr", "ご住所", "例：東京都渋谷区神宮前1-2-3 ミリアレジデンス101", true) +
-          field("email", "メールアドレス", "example@millia.jp", true) +
+          field("email", "メールアドレス", "example@milia.jp", true) +
         '</div>' +
         '<div class="form-card"><h3>お支払い方法</h3><div class="hint">デモのため実際の請求は発生しません。</div>' +
           '<div class="pay-opts">' +
