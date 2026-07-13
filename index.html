@@ -92,6 +92,7 @@
     font-size: 17px; display: grid; place-items: center; transition: transform .15s, background .2s;
   }
   .icon-btn:hover { transform: translateY(-2px); background: var(--surface); }
+  .icon-btn svg { width: 19px; height: 19px; }
   .cart-btn { position: relative; }
   .cart-badge {
     position: absolute; top: -4px; right: -4px; min-width: 20px; height: 20px; padding: 0 5px;
@@ -174,7 +175,8 @@
     box-shadow: var(--shadow-sm); border: 1px solid var(--line); transition: transform .25s, box-shadow .25s;
   }
   .feature:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
-  .feature .fi { font-size: 36px; }
+  .feature .fi { display: flex; justify-content: center; color: var(--accent); }
+  .feature .fi svg { width: 36px; height: 36px; }
   .feature h3 { margin: 14px 0 6px; font-size: 17px; }
   .feature p { color: var(--text-sub); font-size: 13px; }
 
@@ -297,7 +299,8 @@
   :root[data-theme="dark"] .free-note { color: var(--accent); }
 
   .empty { text-align: center; padding: 60px 20px; }
-  .empty .big { font-size: 68px; }
+  .empty .big { font-size: 54px; font-family: var(--serif); font-style: italic; color: var(--text-sub); }
+  .empty .big svg { width: 54px; height: 54px; color: var(--text-sub); }
   .empty p { color: var(--text-sub); margin: 12px 0 24px; }
 
   /* Checkout form */
@@ -393,8 +396,8 @@
     <a href="#/" class="navlink">HOME</a>
     <a href="#/products" class="navlink">ITEMS</a>
     <a href="#/lookbook" class="navlink">LOOKBOOK</a>
-    <button class="icon-btn" id="themeBtn" title="テーマ切替" aria-label="テーマ切替">🌙</button>
-    <a href="#/cart" class="icon-btn cart-btn" title="カート" aria-label="カート">👜
+    <button class="icon-btn" id="themeBtn" title="テーマ切替" aria-label="テーマ切替"></button>
+    <a href="#/cart" class="icon-btn cart-btn" title="カート" aria-label="カート"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span class="cart-badge hidden" id="cartBadge">0</span>
     </a>
   </div>
@@ -432,6 +435,20 @@
 <script>
 (function () {
   "use strict";
+
+  // ===== SVGラインアイコン（絵文字の代わりの上品な線画）=====
+  function icon(paths) {
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + paths + '</svg>';
+  }
+  var ICONS = {
+    truck: icon('<rect x="1" y="4" width="15" height="12" rx="1"/><path d="M16 9h4l3 3v4h-7V9z"/><circle cx="5.5" cy="18.5" r="2"/><circle cx="18.5" cy="18.5" r="2"/>'),
+    repeat: icon('<polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>'),
+    gift: icon('<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>'),
+    bag: icon('<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>'),
+    tag: icon('<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"/><line x1="7" y1="7" x2="7.01" y2="7"/>'),
+    sun: icon('<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>'),
+    moon: icon('<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>')
+  };
 
   // ===== データ =====
   var PRODUCTS = [
@@ -540,7 +557,7 @@
   }
   function applyTheme(mode) {
     document.documentElement.setAttribute("data-theme", mode);
-    document.getElementById("themeBtn").textContent = mode === "dark" ? "☀️" : "🌙";
+    document.getElementById("themeBtn").innerHTML = mode === "dark" ? ICONS.sun : ICONS.moon;
     try { localStorage.setItem("millia_theme", mode); } catch (e) {}
   }
 
@@ -588,7 +605,7 @@
     else if (seg[0] === "cart") { app.innerHTML = viewCart(); bindCart(); }
     else if (seg[0] === "checkout") { app.innerHTML = viewCheckout(); bindCheckout(); }
     else if (seg[0] === "complete") { app.innerHTML = viewComplete(); }
-    else { app.innerHTML = '<div class="wrap block"><div class="empty"><div class="big">🕊️</div><p>ページが見つかりませんでした。</p><a class="btn btn-primary" href="#/">ホームへ戻る</a></div></div>'; }
+    else { app.innerHTML = '<div class="wrap block"><div class="empty"><div class="big">✦</div><p>ページが見つかりませんでした。</p><a class="btn btn-primary" href="#/">ホームへ戻る</a></div></div>'; }
 
     // ページ切替フェード＋スクロール出現
     app.classList.remove("page-in");
@@ -624,9 +641,9 @@
 
     '<section class="block"><div class="wrap">' +
       '<div class="features">' +
-        feature("🚚", "¥11,000で送料無料", "全国どこでも。¥11,000以上のご注文で送料無料になります。", 0) +
-        feature("📏", "サイズ交換 無料", "サイズが合わなくても安心。1回まで無料で交換いたします。", 1) +
-        feature("🎁", "丁寧なギフト包装", "大切な人への贈り物に。オリジナルボックスでお届けします。", 2) +
+        feature(ICONS.truck, "¥11,000で送料無料", "全国どこでも。¥11,000以上のご注文で送料無料になります。", 0) +
+        feature(ICONS.repeat, "サイズ交換 無料", "サイズが合わなくても安心。1回まで無料で交換いたします。", 1) +
+        feature(ICONS.gift, "丁寧なギフト包装", "大切な人への贈り物に。オリジナルボックスでお届けします。", 2) +
       '</div>' +
     '</div></section>' +
 
@@ -670,7 +687,7 @@
       '<div class="sec-head"><div class="kicker">ALL ITEMS</div><h2>アイテム一覧</h2><p>2026 SS ファーストコレクション。</p></div>' +
       '<div class="filters">' + chips + '</div>' +
       (list.length ? '<div class="grid">' + list.map(function (p, i) { return cardHTML(p, i); }).join("") + '</div>'
-                   : '<div class="empty"><div class="big">🧵</div><p>このカテゴリのアイテムは準備中です。</p></div>') +
+                   : '<div class="empty"><div class="big">' + ICONS.tag + '</div><p>このカテゴリのアイテムは準備中です。</p></div>') +
     '</div>';
   }
   function bindProducts() {
@@ -705,7 +722,7 @@
   // ===== ビュー：商品詳細 =====
   function viewDetail(id) {
     var p = findProduct(id);
-    if (!p) return '<div class="wrap block"><div class="empty"><div class="big">🧵</div><p>アイテムが見つかりませんでした。</p><a class="btn btn-primary" href="#/products">アイテム一覧へ</a></div></div>';
+    if (!p) return '<div class="wrap block"><div class="empty"><div class="big">' + ICONS.tag + '</div><p>アイテムが見つかりませんでした。</p><a class="btn btn-primary" href="#/products">アイテム一覧へ</a></div></div>';
     var sizeChips = p.sizes.map(function (s, i) {
       return '<button class="size-chip' + (i === 0 ? ' active' : '') + '" data-size="' + s + '">' + s + '</button>';
     }).join("");
@@ -746,7 +763,7 @@
             '<button class="btn btn-primary" id="addDetail">カートに入れる</button>' +
             '<button class="btn btn-accent" id="buyNow">今すぐ購入 <span class="arw">→</span></button>' +
           '</div>' +
-          '<div style="color:var(--text-sub);font-size:12.5px">🚚 ¥11,000以上のご購入で送料無料／📏 サイズ交換1回無料</div>' +
+          '<div style="color:var(--text-sub);font-size:12.5px">¥11,000以上のご購入で送料無料 ／ サイズ交換1回無料</div>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -783,7 +800,7 @@
     });
     document.getElementById("addDetail").addEventListener("click", function () {
       addToCart(id, selectedSize, parseInt(qtyInput.value, 10) || 1);
-      toast("👜 カートに追加しました（サイズ: " + selectedSize + "）");
+      toast("✓ カートに追加しました（サイズ: " + selectedSize + "）");
     });
     document.getElementById("buyNow").addEventListener("click", function () {
       addToCart(id, selectedSize, parseInt(qtyInput.value, 10) || 1);
@@ -808,8 +825,8 @@
   function viewCart() {
     var items = cartItems();
     if (!items.length) {
-      return '<div class="wrap block"><h1 class="page-title">👜 ショッピングカート</h1>' +
-        '<div class="empty"><div class="big">👜</div><p>カートにアイテムがありません。<br>2026 SS の新作を見てみませんか？</p>' +
+      return '<div class="wrap block"><h1 class="page-title">ショッピングカート</h1>' +
+        '<div class="empty"><div class="big">' + ICONS.bag + '</div><p>カートにアイテムがありません。<br>2026 SS の新作を見てみませんか？</p>' +
         '<a class="btn btn-primary" href="#/products">アイテム一覧へ <span class="arw">→</span></a></div></div>';
     }
     var sub = subtotal();
@@ -823,16 +840,16 @@
         '<div class="ci-right">' +
           '<div class="qty"><button data-dec="' + it.key + '">−</button>' +
             '<input type="text" value="' + it.qty + '" readonly><button data-inc="' + it.key + '">＋</button></div>' +
-          '<button class="remove" data-rm="' + it.key + '">🗑 削除</button>' +
+          '<button class="remove" data-rm="' + it.key + '">削除</button>' +
         '</div>' +
       '</div>';
     }).join("");
 
     var freeNote = ship > 0
-      ? '<div class="free-note">あと ' + yen(FREE_SHIP - sub) + ' で送料無料まで！ 🚚</div>'
+      ? '<div class="free-note">あと ' + yen(FREE_SHIP - sub) + ' で送料無料 ✦</div>'
       : '<div class="free-note">✦ 送料無料が適用されています ✦</div>';
 
-    return '<div class="wrap block"><h1 class="page-title">👜 ショッピングカート</h1>' +
+    return '<div class="wrap block"><h1 class="page-title">ショッピングカート</h1>' +
       '<p style="color:var(--text-sub);margin-bottom:20px">' + cartCount() + '点のアイテム</p>' +
       '<div class="cart-layout"><div>' + rows +
         '<a href="#/products" style="color:var(--accent);font-weight:700;font-size:14px">← 買い物を続ける</a></div>' +
@@ -861,7 +878,7 @@
   function viewCheckout() {
     var items = cartItems();
     if (!items.length) {
-      return '<div class="wrap block"><div class="empty"><div class="big">👜</div><p>カートが空のためレジに進めません。</p><a class="btn btn-primary" href="#/products">アイテム一覧へ</a></div></div>';
+      return '<div class="wrap block"><div class="empty"><div class="big">' + ICONS.bag + '</div><p>カートが空のためレジに進めません。</p><a class="btn btn-primary" href="#/products">アイテム一覧へ</a></div></div>';
     }
     var sub = subtotal(), ship = shipFee(sub);
     var miniRows = items.map(function (it) {
@@ -983,7 +1000,7 @@
         var p = findProduct(id);
         var size = p ? p.sizes[0] : "FREE";
         addToCart(id, size, 1);
-        toast("👜 カートに追加しました（サイズ: " + size + "）");
+        toast("✓ カートに追加しました（サイズ: " + size + "）");
       });
     });
   }
