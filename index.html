@@ -468,7 +468,7 @@
         <a href="#/">サイズ交換・返品</a>
       </div>
     </div>
-    <div class="foot-bottom">© 2026 MiliA -Unfinished Beauty- — DESIGN DEMO ｜ ¥11,000以上のご購入で送料無料</div>
+    <div class="foot-bottom">© 2026 MiliA -Unfinished Beauty- — DESIGN DEMO ｜ 送料 全国一律¥500</div>
   </div>
 </footer>
 
@@ -526,8 +526,7 @@
   var CATS = ["すべて", "Tシャツ", "バッグ"];
   var SIZE_CHART = [["S",65,49,42,19],["M",69,52,46,20],["L",73,55,50,22]];
   var LOOKS = ["img/s3.jpg","img/s16.jpg","img/s10.jpg","img/s9.jpg","img/s4.jpg","img/s17.jpg","img/s14.jpg"];
-  var FREE_SHIP = 11000;
-  var SHIP_FEE = 500;
+  var SHIP_FEE = 500; // 全国一律
 
   // ===== 状態（カートはlocalStorage永続化）=====
   var cart = loadCart();
@@ -555,7 +554,7 @@
   function subtotal() {
     return cartItems().reduce(function (s, it) { return s + it.p.price * it.qty; }, 0);
   }
-  function shipFee(sub) { return sub === 0 ? 0 : (sub >= FREE_SHIP ? 0 : SHIP_FEE); }
+  function shipFee(sub) { return sub === 0 ? 0 : SHIP_FEE; }
 
   function findProduct(id) {
     for (var i = 0; i < PRODUCTS.length; i++) if (PRODUCTS[i].id === id) return PRODUCTS[i];
@@ -672,7 +671,7 @@
   // ===== ビュー：ホーム =====
   function viewHome() {
     var picks = PRODUCTS.slice(0, 3);
-    var marqueeSet = '<span>NEW COLLECTION 2026 SS <i>—</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>—</i></span><span>¥11,000以上で送料無料 <i>—</i></span><span>サイズ交換 無料 <i>—</i></span>';
+    var marqueeSet = '<span>NEW COLLECTION 2026 SS <i>—</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>—</i></span><span>送料 全国一律¥500 <i>—</i></span><span>サイズ交換 無料 <i>—</i></span>';
     return '' +
     '<section class="hero"><div class="wrap hero-inner">' +
       '<div>' +
@@ -705,7 +704,7 @@
 
     '<section class="block"><div class="wrap">' +
       '<div class="features">' +
-        feature(ICONS.truck, "¥11,000で送料無料", "送料は全国一律¥500。¥11,000以上のご注文で送料無料になります。", 0) +
+        feature(ICONS.truck, "送料 全国一律¥500", "北海道から沖縄まで、日本全国どこへでも一律¥500でお届けします。", 0) +
         feature(ICONS.repeat, "サイズ交換 無料", "サイズが合わなくても安心。1回まで無料で交換いたします。", 1) +
       '</div>' +
     '</div></section>' +
@@ -818,7 +817,7 @@
             '<button class="btn btn-primary" id="addDetail">カートに入れる</button>' +
             '<button class="btn btn-accent" id="buyNow">今すぐ購入 <span class="arw">→</span></button>' +
           '</div>' +
-          '<div style="color:var(--text-sub);font-size:12.5px">¥11,000以上のご購入で送料無料 ／ サイズ交換1回無料</div>' +
+          '<div style="color:var(--text-sub);font-size:12.5px">送料 全国一律¥500 ／ サイズ交換1回無料</div>' +
         '</div>' +
       '</div>' +
     '</div>';
@@ -927,9 +926,7 @@
       '</div>';
     }).join("");
 
-    var freeNote = ship > 0
-      ? '<div class="free-note">あと ' + yen(FREE_SHIP - sub) + ' で送料無料</div>'
-      : '<div class="free-note">送料無料が適用されています</div>';
+    var freeNote = '<div class="free-note">送料は全国一律¥500です</div>';
 
     return '<div class="wrap block"><h1 class="page-title">ショッピングカート</h1>' +
       '<p style="color:var(--text-sub);margin-bottom:20px">' + cartCount() + '点のアイテム</p>' +
