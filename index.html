@@ -198,12 +198,12 @@
   }
   .story h1 { position: relative; font-size: 40px; letter-spacing: .06em; }
   .story .head .sub { position: relative; margin-top: 14px; color: var(--text-sub); font-family: var(--serif); font-style: italic; font-size: 13px; letter-spacing: .3em; }
-  .story .stanza { font-size: 17px; line-height: 2.3; margin-bottom: 46px; }
-  .story .stanza.op { font-family: var(--serif); font-size: 21px; line-height: 2.1; letter-spacing: .06em; }
-  .story .stanza.em { font-family: var(--serif); font-size: 24px; line-height: 2; color: var(--accent); letter-spacing: .1em; margin: 60px 0; }
-  .story .stanza.em::before, .story .stanza.em::after { content: "✦"; display: block; font-size: 12px; color: var(--accent); opacity: .6; }
-  .story .stanza.em::before { margin-bottom: 18px; }
-  .story .stanza.em::after { margin-top: 18px; }
+  .story .stanza { font-size: 15.5px; line-height: 2.3; margin-bottom: 46px; color: var(--text-sub); }
+  .story .stanza.k { font-family: var(--serif); font-size: 21px; line-height: 2.1; letter-spacing: .06em; color: var(--text); }
+  .story .stanza.em { font-family: var(--serif); font-size: 26px; line-height: 1.9; color: var(--accent); letter-spacing: .12em; margin: 64px 0; }
+  .story .stanza.em::before, .story .stanza.em::after { content: ""; display: block; width: 40px; height: 1px; background: var(--accent); opacity: .55; margin: 0 auto; }
+  .story .stanza.em::before { margin-bottom: 22px; }
+  .story .stanza.em::after { margin-top: 22px; }
   .story .m-mark { font-family: var(--serif); font-style: italic; font-size: 46px; color: var(--accent); line-height: 1; margin-top: 54px; }
   .side-photo { position: absolute; width: 200px; z-index: 1; }
   .side-photo.sp-l { left: 6px; }
@@ -219,9 +219,9 @@
   @media (max-width: 520px) {
     .story h1 { font-size: 28px; }
     .story .head .wm { font-size: 130px; }
-    .story .stanza { font-size: 15px; }
-    .story .stanza.op { font-size: 18px; }
-    .story .stanza.em { font-size: 20px; }
+    .story .stanza { font-size: 14.5px; }
+    .story .stanza.k { font-size: 17.5px; }
+    .story .stanza.em { font-size: 21px; }
   }
 
   /* Filters */
@@ -425,7 +425,7 @@
 </style>
 </head>
 <body>
-<div class="demo-note"><i>✦</i> DESIGN DEMO — これはデザインデモです。実際の販売・決済は行われません <i>✦</i></div>
+<div class="demo-note">DESIGN DEMO — これはデザインデモです。実際の販売・決済は行われません</div>
 
 <header>
   <div class="wrap nav">
@@ -509,16 +509,16 @@
       imgs: ["img/m4.jpg","img/s15.jpg","img/s13.jpg"] }
   ];
 
-  // ブランドストーリー（CEO提供の公式文面）
+  // ブランドストーリー（CEO提供の公式文面）k=強調節(明朝・大) em=最重要節
   var STORY = [
-    { lines: ["完璧じゃなくてもいい。", "まだ途中の自分でもいい。"] },
+    { lines: ["完璧じゃなくてもいい。", "まだ途中の自分でもいい。"], k: true },
     { lines: ["MiliAは", "“未完成でも美しい”という信念から", "生まれたアパレルブランド。"] },
     { lines: ["完璧を求められる社会の中で、", "あえて「足りないこと」や", "「未完成なままの自分」を受け入れる。"] },
-    { lines: ["まだ途中だからこそ、可能性がある。", "まだ完成していないからこそ、美しい。"] },
+    { lines: ["まだ途中だからこそ、可能性がある。", "まだ完成していないからこそ、美しい。"], k: true },
     { lines: ["まだ埋まっていないピースは、", "これからの可能性。"] },
     { lines: ["完成していない私たちへ。"], em: true },
     { lines: ["MiliAは、", "「今の自分を少し好きになれる」", "そんな存在でありたい。"] },
-    { lines: ["特別な誰かのためじゃなく、", "今を生きているあなたのために。"] }
+    { lines: ["特別な誰かのためじゃなく、", "今を生きているあなたのために。"], k: true }
   ];
 
   var CATS = ["すべて", "Tシャツ", "バッグ"];
@@ -658,7 +658,7 @@
     else if (seg[0] === "cart") { app.innerHTML = viewCart(); bindCart(); }
     else if (seg[0] === "checkout") { app.innerHTML = viewCheckout(); bindCheckout(); }
     else if (seg[0] === "complete") { app.innerHTML = viewComplete(); }
-    else { app.innerHTML = '<div class="wrap block"><div class="empty"><div class="big">✦</div><p>ページが見つかりませんでした。</p><a class="btn btn-primary" href="#/">ホームへ戻る</a></div></div>'; }
+    else { app.innerHTML = '<div class="wrap block"><div class="empty"><div class="big">M</div><p>ページが見つかりませんでした。</p><a class="btn btn-primary" href="#/">ホームへ戻る</a></div></div>'; }
 
     // ページ切替フェード＋スクロール出現
     app.classList.remove("page-in");
@@ -670,7 +670,7 @@
   // ===== ビュー：ホーム =====
   function viewHome() {
     var picks = PRODUCTS.slice(0, 3);
-    var marqueeSet = '<span>NEW COLLECTION 2026 SS <i>✦</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>✦</i></span><span>¥11,000以上で送料無料 <i>✦</i></span><span>サイズ交換 無料 <i>✦</i></span>';
+    var marqueeSet = '<span>NEW COLLECTION 2026 SS <i>—</i></span><span>Mili<i>A</i> -Unfinished Beauty- <i>—</i></span><span>¥11,000以上で送料無料 <i>—</i></span><span>サイズ交換 無料 <i>—</i></span>';
     return '' +
     '<section class="hero"><div class="wrap hero-inner">' +
       '<div>' +
@@ -880,7 +880,7 @@
       '<div class="kicker anim d1">ABOUT ｜ MiliA</div>' +
       '<div class="head anim d2"><span class="wm">M</span><h1>未完成でも、美しい。</h1><div class="sub">- Unfinished Beauty -</div></div>' +
       STORY.map(function (s, i) {
-        var cls = s.em ? ' em' : (i === 0 || i === STORY.length - 1 ? ' op' : '');
+        var cls = s.em ? ' em' : (s.k ? ' k' : '');
         return '<p class="stanza' + cls + ' reveal" style="transition-delay:' + Math.min(i * 0.05, 0.25) + 's">' + s.lines.join("<br>") + '</p>';
       }).join("") +
       '<div class="m-mark reveal">M</div>' +
@@ -927,8 +927,8 @@
     }).join("");
 
     var freeNote = ship > 0
-      ? '<div class="free-note">あと ' + yen(FREE_SHIP - sub) + ' で送料無料 ✦</div>'
-      : '<div class="free-note">✦ 送料無料が適用されています ✦</div>';
+      ? '<div class="free-note">あと ' + yen(FREE_SHIP - sub) + ' で送料無料</div>'
+      : '<div class="free-note">送料無料が適用されています</div>';
 
     return '<div class="wrap block"><h1 class="page-title">ショッピングカート</h1>' +
       '<p style="color:var(--text-sub);margin-bottom:20px">' + cartCount() + '点のアイテム</p>' +
@@ -1051,7 +1051,7 @@
     var order = null;
     try { order = JSON.parse(sessionStorage.getItem("millia_order")); } catch (e) {}
     if (!order) {
-      return '<div class="wrap block"><div class="empty"><div class="big">✦</div><p>ご注文情報が見つかりませんでした。</p><a class="btn btn-primary" href="#/products">お買い物を続ける</a></div></div>';
+      return '<div class="wrap block"><div class="empty"><div class="big">M</div><p>ご注文情報が見つかりませんでした。</p><a class="btn btn-primary" href="#/products">お買い物を続ける</a></div></div>';
     }
     return '<div class="wrap block"><div class="complete">' +
       '<div class="check anim d1">M</div>' +
@@ -1066,7 +1066,7 @@
         '<div class="row"><span>お支払い方法</span><span>' + esc(order.pay) + '</span></div>' +
         '<div class="row" style="font-weight:800;color:var(--accent)"><span>お支払い合計</span><span>' + yen(order.total) + '</span></div>' +
       '</div>' +
-      '<p style="font-size:13px" class="anim d5">商品はオリジナルボックスに包んで、丁寧にお届けします ✦</p>' +
+      '<p style="font-size:13px" class="anim d5">商品はオリジナルボックスに包んで、丁寧にお届けします。</p>' +
       '<a class="btn btn-primary anim d5" style="margin-top:14px" href="#/products">お買い物を続ける <span class="arw">→</span></a>' +
     '</div></div>';
   }
