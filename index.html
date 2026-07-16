@@ -187,16 +187,41 @@
   .about p { color: var(--text-sub); font-size: 15px; }
 
   /* Brand story (ABOUT page) */
-  .story { max-width: 620px; margin: 0 auto; text-align: center; padding: 10px 0 20px; }
+  .story-wrap { position: relative; }
+  .story { max-width: 620px; margin: 0 auto; text-align: center; padding: 10px 0 20px; position: relative; z-index: 2; }
   .story .kicker { color: var(--accent); font-weight: 800; letter-spacing: .3em; font-size: 12px; }
-  .story h1 { font-size: 34px; margin: 14px 0 54px; }
-  .story .stanza { font-size: 16px; line-height: 2.3; margin-bottom: 44px; }
-  .story .stanza.em { font-family: var(--serif); font-size: 22px; line-height: 2; color: var(--accent); letter-spacing: .08em; margin: 56px 0; }
+  .story .head { position: relative; padding: 46px 0 26px; margin-bottom: 34px; }
+  .story .head .wm {
+    position: absolute; inset: 0; display: grid; place-items: center;
+    font-family: var(--serif); font-style: italic; font-size: 200px; line-height: 1;
+    color: color-mix(in srgb, var(--ink) 6%, transparent); pointer-events: none; user-select: none;
+  }
+  .story h1 { position: relative; font-size: 40px; letter-spacing: .06em; }
+  .story .head .sub { position: relative; margin-top: 14px; color: var(--text-sub); font-family: var(--serif); font-style: italic; font-size: 13px; letter-spacing: .3em; }
+  .story .stanza { font-size: 17px; line-height: 2.3; margin-bottom: 46px; }
+  .story .stanza.op { font-family: var(--serif); font-size: 21px; line-height: 2.1; letter-spacing: .06em; }
+  .story .stanza.em { font-family: var(--serif); font-size: 24px; line-height: 2; color: var(--accent); letter-spacing: .1em; margin: 60px 0; }
+  .story .stanza.em::before, .story .stanza.em::after { content: "✦"; display: block; font-size: 12px; color: var(--accent); opacity: .6; }
+  .story .stanza.em::before { margin-bottom: 18px; }
+  .story .stanza.em::after { margin-top: 18px; }
   .story .m-mark { font-family: var(--serif); font-style: italic; font-size: 46px; color: var(--accent); line-height: 1; margin-top: 54px; }
+  .side-photo { position: absolute; width: 200px; z-index: 1; }
+  .side-photo.sp-l { left: 6px; }
+  .side-photo.sp-r { right: 6px; }
+  .side-photo img {
+    display: block; width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    border-radius: 16px; border: 5px solid var(--surface); box-shadow: var(--shadow);
+    transform: rotate(var(--r, 0deg)); transition: transform .45s cubic-bezier(.22,.8,.3,1);
+  }
+  .side-photo:hover img { transform: rotate(0deg) scale(1.05); }
+  @media (max-width: 1100px) { .side-photo { width: 150px; } }
+  @media (max-width: 900px) { .side-photo { display: none; } }
   @media (max-width: 520px) {
-    .story h1 { font-size: 27px; }
+    .story h1 { font-size: 28px; }
+    .story .head .wm { font-size: 130px; }
     .story .stanza { font-size: 15px; }
-    .story .stanza.em { font-size: 19px; }
+    .story .stanza.op { font-size: 18px; }
+    .story .stanza.em { font-size: 20px; }
   }
 
   /* Filters */
@@ -838,17 +863,30 @@
   }
 
   // ===== ビュー：ABOUT（ブランドストーリー）=====
+  var ABOUT_PHOTOS = [
+    { src: "img/s13.jpg", side: "l", top: "7%",  r: "-6deg" },
+    { src: "img/s7.jpg",  side: "r", top: "16%", r: "5deg"  },
+    { src: "img/s8.jpg",  side: "l", top: "33%", r: "4deg"  },
+    { src: "img/s12.jpg", side: "r", top: "47%", r: "-5deg" },
+    { src: "img/s15.jpg", side: "l", top: "62%", r: "-4deg" },
+    { src: "img/s17.jpg", side: "r", top: "76%", r: "6deg"  }
+  ];
   function viewAbout() {
-    return '<div class="wrap block"><div class="story">' +
+    var photos = ABOUT_PHOTOS.map(function (p, i) {
+      return '<div class="side-photo sp-' + p.side + ' reveal" style="top:' + p.top + ';--r:' + p.r + ';transition-delay:' + Math.min(i * 0.08, 0.3) + 's">' +
+        '<img src="' + p.src + '" alt="MiliA スナップ" loading="lazy"></div>';
+    }).join("");
+    return '<div class="wrap block"><div class="story-wrap">' + photos + '<div class="story">' +
       '<div class="kicker anim d1">ABOUT ｜ MiliA</div>' +
-      '<h1 class="anim d2">未完成でも、美しい。</h1>' +
+      '<div class="head anim d2"><span class="wm">M</span><h1>未完成でも、美しい。</h1><div class="sub">- Unfinished Beauty -</div></div>' +
       STORY.map(function (s, i) {
-        return '<p class="stanza' + (s.em ? ' em' : '') + ' reveal" style="transition-delay:' + Math.min(i * 0.05, 0.25) + 's">' + s.lines.join("<br>") + '</p>';
+        var cls = s.em ? ' em' : (i === 0 || i === STORY.length - 1 ? ' op' : '');
+        return '<p class="stanza' + cls + ' reveal" style="transition-delay:' + Math.min(i * 0.05, 0.25) + 's">' + s.lines.join("<br>") + '</p>';
       }).join("") +
       '<div class="m-mark reveal">M</div>' +
       '<p class="reveal" style="color:var(--text-sub);font-size:12px;letter-spacing:.24em;margin-top:10px">MiliA -Unfinished Beauty-</p>' +
       '<div class="reveal" style="margin-top:36px"><a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a></div>' +
-    '</div></div>';
+    '</div></div></div>';
   }
 
   // ===== ビュー：LOOKBOOK =====
