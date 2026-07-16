@@ -186,6 +186,19 @@
   .about h2 { font-size: 24px; margin: 14px 0 12px; }
   .about p { color: var(--text-sub); font-size: 15px; }
 
+  /* Brand story (ABOUT page) */
+  .story { max-width: 620px; margin: 0 auto; text-align: center; padding: 10px 0 20px; }
+  .story .kicker { color: var(--accent); font-weight: 800; letter-spacing: .3em; font-size: 12px; }
+  .story h1 { font-size: 34px; margin: 14px 0 54px; }
+  .story .stanza { font-size: 16px; line-height: 2.3; margin-bottom: 44px; }
+  .story .stanza.em { font-family: var(--serif); font-size: 22px; line-height: 2; color: var(--accent); letter-spacing: .08em; margin: 56px 0; }
+  .story .m-mark { font-family: var(--serif); font-style: italic; font-size: 46px; color: var(--accent); line-height: 1; margin-top: 54px; }
+  @media (max-width: 520px) {
+    .story h1 { font-size: 27px; }
+    .story .stanza { font-size: 15px; }
+    .story .stanza.em { font-size: 19px; }
+  }
+
   /* Filters */
   .filters { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px; }
   .chip {
@@ -396,6 +409,7 @@
     <a href="#/" class="navlink">HOME</a>
     <a href="#/products" class="navlink">ITEMS</a>
     <a href="#/lookbook" class="navlink">LOOKBOOK</a>
+    <a href="#/about" class="navlink">ABOUT</a>
     <button class="icon-btn" id="themeBtn" title="テーマ切替" aria-label="テーマ切替"></button>
     <a href="#/cart" class="icon-btn cart-btn" title="カート" aria-label="カート"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
       <span class="cart-badge hidden" id="cartBadge">0</span>
@@ -410,7 +424,7 @@
     <div class="foot-grid">
       <div>
         <div class="foot-logo">Mili<b>A</b> <span style="font-size:12px;letter-spacing:.14em;color:var(--text-sub)">-Unfinished Beauty-</span></div>
-        <p>「未完成だから、美しい。」日常に寄り添う、上質でミニマルなワードローブを提案するアパレルブランドです。</p>
+        <p>「未完成でも、美しい。」日常に寄り添う、上質でミニマルなワードローブを提案するアパレルブランドです。</p>
       </div>
       <div>
         <h4>SHOP</h4>
@@ -421,6 +435,7 @@
       </div>
       <div>
         <h4>ABOUT</h4>
+        <a href="#/about">ブランドストーリー</a>
         <a href="#/lookbook">LOOKBOOK</a>
         <a href="#/">配送・送料について</a>
         <a href="#/">サイズ交換・返品</a>
@@ -467,6 +482,18 @@
     { id: "rabbit-white", name: "パズルラビットTシャツ",   color: "WHITE", cat: "Tシャツ", price: 3700, old: null, sizes: ["S","M","L"], material: "コットン100%", tag: "NEW", sizeChart: true,
       desc: "クリーンなホワイトにモノトーンのラビットが映える。一枚でもレイヤードでも様になる定番。",
       imgs: ["img/m4.jpg","img/s15.jpg","img/s13.jpg"] }
+  ];
+
+  // ブランドストーリー（CEO提供の公式文面）
+  var STORY = [
+    { lines: ["完璧じゃなくてもいい。", "まだ途中の自分でもいい。"] },
+    { lines: ["MiliAは", "“未完成でも美しい”という信念から", "生まれたアパレルブランド。"] },
+    { lines: ["完璧を求められる社会の中で、", "あえて「足りないこと」や", "「未完成なままの自分」を受け入れる。"] },
+    { lines: ["まだ途中だからこそ、可能性がある。", "まだ完成していないからこそ、美しい。"] },
+    { lines: ["まだ埋まっていないピースは、", "これからの可能性。"] },
+    { lines: ["完成していない私たちへ。"], em: true },
+    { lines: ["MiliAは、", "「今の自分を少し好きになれる」", "そんな存在でありたい。"] },
+    { lines: ["特別な誰かのためじゃなく、", "今を生きているあなたのために。"] }
   ];
 
   var CATS = ["すべて", "Tシャツ", "バッグ"];
@@ -602,6 +629,7 @@
     else if (seg[0] === "products") { app.innerHTML = viewProducts(r.query.cat || "すべて"); bindProducts(); }
     else if (seg[0] === "product") { app.innerHTML = viewDetail(seg[1]); bindDetail(seg[1]); }
     else if (seg[0] === "lookbook") { app.innerHTML = viewLookbook(); }
+    else if (seg[0] === "about") { app.innerHTML = viewAbout(); }
     else if (seg[0] === "cart") { app.innerHTML = viewCart(); bindCart(); }
     else if (seg[0] === "checkout") { app.innerHTML = viewCheckout(); bindCheckout(); }
     else if (seg[0] === "complete") { app.innerHTML = viewComplete(); }
@@ -623,7 +651,7 @@
       '<div>' +
         '<div class="kicker anim d1">2026 SS — 1st ITEM</div>' +
         '<h1 class="anim d2">纏う、<br><em>わたしらしさ</em>。</h1>' +
-        '<p class="anim d3">MiliA（ミリア）-Unfinished Beauty- は、日常に寄り添う上質でミニマルなワードローブを提案します。未完成だから、美しい。そんな「途中のわたし」を愛せる毎日を。</p>' +
+        '<p class="anim d3">MiliA（ミリア）-Unfinished Beauty- は、日常に寄り添う上質でミニマルなワードローブを提案します。未完成でも、美しい。そんな「途中の自分」を愛せる毎日を。</p>' +
         '<div class="hero-cta anim d4">' +
           '<a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a>' +
           '<a class="btn btn-ghost" href="#/lookbook">LOOKBOOKを見る</a>' +
@@ -666,8 +694,9 @@
     '<section class="block" style="padding-top:10px"><div class="wrap">' +
       '<div class="about reveal">' +
         '<div class="m">M</div>' +
-        '<h2>未完成だから、美しい。</h2>' +
-        '<p>完璧じゃなくていい。変わり続ける「途中のわたし」こそ、いちばん美しい。MiliAは素材と縫製にこだわり、あなたと一緒に育っていく定番をつくり続けます。</p>' +
+        '<h2>未完成でも、美しい。</h2>' +
+        '<p>完璧じゃなくてもいい。まだ途中の自分でもいい。<br>MiliAは“未完成でも美しい”という信念から生まれたアパレルブランドです。</p>' +
+        '<a class="btn btn-ghost" style="margin-top:24px" href="#/about">ブランドストーリーを読む <span class="arw">→</span></a>' +
       '</div>' +
     '</div></section>';
   }
@@ -806,6 +835,20 @@
       addToCart(id, selectedSize, parseInt(qtyInput.value, 10) || 1);
       location.hash = "#/cart";
     });
+  }
+
+  // ===== ビュー：ABOUT（ブランドストーリー）=====
+  function viewAbout() {
+    return '<div class="wrap block"><div class="story">' +
+      '<div class="kicker anim d1">ABOUT ｜ MiliA</div>' +
+      '<h1 class="anim d2">未完成でも、美しい。</h1>' +
+      STORY.map(function (s, i) {
+        return '<p class="stanza' + (s.em ? ' em' : '') + ' reveal" style="transition-delay:' + Math.min(i * 0.05, 0.25) + 's">' + s.lines.join("<br>") + '</p>';
+      }).join("") +
+      '<div class="m-mark reveal">M</div>' +
+      '<p class="reveal" style="color:var(--text-sub);font-size:12px;letter-spacing:.24em;margin-top:10px">MiliA -Unfinished Beauty-</p>' +
+      '<div class="reveal" style="margin-top:36px"><a class="btn btn-primary" href="#/products">アイテムを見る <span class="arw">→</span></a></div>' +
+    '</div></div>';
   }
 
   // ===== ビュー：LOOKBOOK =====
